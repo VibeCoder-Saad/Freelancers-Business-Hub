@@ -1,0 +1,24 @@
+# Python cache files and virtual environments
+__pycache__/
+*.pyc
+venv/
+env/
+
+# IDE and editor-specific files
+.vscode/
+.idea/
+
+# Distribution and packaging folders
+build/
+dist/
+*.spec
+
+# --- CRITICAL: User-generated private data ---
+# This ensures you never accidentally upload your personal database or invoices.
+database/freelancer_hub.db
+data/invoices/
+data/receipts/
+
+# Operating System specific files
+.DS_Store
+Thumbs.db
