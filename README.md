@@ -11,7 +11,7 @@
 </p>
 
 <p align="center">
-  <img src="https://github.com/VibeCoder-Saad/Freelancers-Business-Hub/blob/main/assets/docs/Dashboard.png?raw=true" alt="Application Dashboard Screenshot"/>
+  <img src="https://github.com/VibeCoder-Saad/Freelancers-Business-Hub/blob/main/assets/docs/Dashboard.PNG?raw=true" alt="Application Dashboard Screenshot"/>
 </p>
 
 ---
