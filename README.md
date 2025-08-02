@@ -122,5 +122,5 @@ freelancer_hub/
     └── widgets/            # Reusable custom UI components like charts
 
 
-### 📄 License
+#📄 License
 This project is licensed under the MIT License. See the LICENSE file for details.
