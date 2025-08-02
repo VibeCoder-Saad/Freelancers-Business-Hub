@@ -1,7 +1,7 @@
 #  freelancers-business-hub
 
 <p align="center">
-  <img src="https://i.imgur.com/YOUR_APP_ICON_URL.png" alt="App Logo" width="128"/>
+  <img src="https://i.ibb.co/jPDmpxZ/briefcase.png" alt="App Logo"/>
 </p>
 
 <h1 align="center">Freelancer's Business Hub</h1>
@@ -11,7 +11,7 @@
 </p>
 
 <p align="center">
-  <img src="https://i.imgur.com/YOUR_GIF_DEMO_URL.gif" alt="Application Demo GIF"/>
+  <img src="https://i.ibb.co/ymBgByJ/dashboard.png" alt="Application Dashboard Screenshot"/>
 </p>
 
 ---
@@ -24,18 +24,16 @@ This application transforms your desktop into a complete command center for your
 *   📊 **Analytics Dashboard:** Get an instant, at-a-glance overview of your business's financial health with live-updating KPIs and charts for revenue and activity.
 *   🗂️ **The Project Hub:** A powerful, interactive command center providing a 360-degree view of any selected project, including its financials, time logs, and associated invoices.
 *   ⏱️ **Live Time Tracking:** An integrated "Start/Stop" timer to accurately log every billable minute against specific projects.
-*   💵 **Automated Invoicing:** Generate professional, clean PDF invoices from your logged time entries with a single click.
+*   💵 **Automated Invoicing:** Generate professional, clean PDF invoices from your logged time entries with a single click, complete with your company logo.
 *   🧾 **Expense Tracking:** Meticulously log all business costs, categorize them, and attach digital receipts for perfect record-keeping.
 *   👥 **Client Management:** A simple yet effective CRM to keep track of all your clients and their contact information.
-*   ⚙️ **Data Management:** Easily back up your entire business database to a portable file and restore it when needed, giving you complete control over your data.
+*   ⚙️ **Data Management:** Customize your company profile, upload your logo, and easily back up or restore your entire business database.
 *   🎨 **Modern, Responsive UI:** A beautiful, responsive, and colorful user interface built with modern design principles, complete with a full icon set for intuitive navigation.
 *   🔒 **100% Standalone & Private:** No cloud services, no monthly fees, no internet required. All your sensitive client and financial data is stored securely on your local machine.
 
 ---
 
 ## 🛠️ Tech Stack
-
-This application is built entirely within the Python ecosystem for a clean, simple, and maintainable codebase.
 
 *   **GUI Framework:** [PySide6](https://www.qt.io/qt-for-python) (The official Qt for Python bindings)
 *   **Database:** [SQLite 3](https://www.sqlite.org/index.html) (via Python's built-in `sqlite3` module)
@@ -58,13 +56,12 @@ Follow these instructions to get the application running on your local machine.
 
 1.  **Clone the Repository:**
     ```bash
-    git clone https://github.com/YOUR_USERNAME/freelancers-business-hub.git
-    cd freelancers-business-hub
+    git clone https://github.com/VibeCoder-Saad/Freelancers-Business-Hub.git
+    cd Freelancers-Business-Hub
     ```
-    *(Or, if not using Git, download and unzip the project folder.)*
 
 2.  **Install Dependencies:**
-    Open your terminal or command prompt in the project's root directory and run the following command to install all necessary Python libraries:
+    Open your terminal in the project's root directory and run the following command:
     ```bash
     pip install PySide6 bcrypt fpdf2 matplotlib
     ```
@@ -75,42 +72,34 @@ Once the setup is complete, you can start the application with a single command 
 
 ```bash
 python main.py
-Use code with caution.
-Markdown
+
 On the first run, you will be prompted to create a primary admin account. After that, the beautiful login screen will appear every time you launch the app.
 🖼️ Gallery
-<p align="center">
-<b>Modern Login Screen</b><br>
-<img src="https://i.imgur.com/YOUR_LOGIN_SCREENSHOT_URL.png" alt="Login Screen" width="700"/>
-</p>
-<br>
-<p align="center">
-<b>Analytics Dashboard</b><br>
-<img src="https://i.imgur.com/YOUR_DASHBOARD_SCREENSHOT_URL.png" alt="Dashboard" width="700"/>
-</p>
-<br>
-<p align="center">
-<b>Interactive Project Hub</b><br>
-<img src="https://i.imgur.com/YOUR_PROJECTHUB_SCREENSHOT_URL.png" alt="Project Hub" width="700"/>
-</p>
-📁 Project Structure
-The project is organized into a clean, modular structure for easy maintenance and scalability.
-Generated code
-freelancer_hub/
-│
-├── main.py                 # The Application Launcher
-├── assets/                 # Icons and background images
-├── database/
-│   └── database_manager.py # Manages all SQLite database operations
-├── shared/
-│   └── pdf_generator.py    # Utility for creating invoice PDFs
-└── ui/
-    ├── login_window.py     # Secure login and registration screen
-    ├── main_window.py      # The main application container with all tabs
-    ├── styles.py           # The application-wide QSS stylesheet
-    ├── views/              # Each feature's UI is a separate "view"
-    └── widgets/            # Reusable custom UI components like charts
-Use code with caution.
+<table>
+<tr>
+<td align="center"><b>Modern Login Screen</b></td>
+<td align="center"><b>Interactive Project Hub</b></td>
+</tr>
+<tr>
+<td><img src="https://i.ibb.co/BH7TqD9/login.png" alt="Login Screen" width="400"/></td>
+<td><img src="https://i.ibb.co/VccmYsb/projecthub.png" alt="Project Hub" width="400"/></td>
+</tr>
+<tr>
+<td align="center"><b>Time Tracking</b></td>
+<td align="center"><b>Invoicing & Billing</b></td>
+</tr>
+<tr>
+<td><img src="https://i.ibb.co/wNN1rTk/timetracking.png" alt="Time Tracking" width="400"/></td>
+<td><img src="https://i.ibb.co/C5DyGhvx/invoices.png" alt="Invoices" width="400"/></td>
+</tr>
+<tr>
+<td align="center"><b>Client Management</b></td>
+<td align="center"><b>Settings & Data Backup</b></td>
+</tr>
+<tr>
+<td><img src="https://i.ibb.co/GGqf283/clients.png" alt="Clients" width="400"/></td>
+<td><img src="https://i.ibb.co/HTdGgvB/settings.png" alt="Settings" width="400"/></td>
+</tr>
+</table>
 📄 License
 This project is licensed under the MIT License. See the LICENSE file for details.
-
