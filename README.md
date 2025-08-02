@@ -120,5 +120,7 @@ freelancer_hub/
     ├── styles.py           # The application-wide QSS stylesheet
     ├── views/              # Each feature's UI is a separate "view"
     └── widgets/            # Reusable custom UI components like charts
+
+
 📄 License
 This project is licensed under the MIT License. See the LICENSE file for details.
