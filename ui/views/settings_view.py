@@ -1,33 +1,42 @@
 # ui/views/settings_view.py
 
+import os
+import shutil
+from datetime import datetime
 from PySide6.QtWidgets import (QWidget, QVBoxLayout, QPushButton, QMessageBox,
                                QFileDialog, QLabel, QFormLayout, QLineEdit, QGroupBox)
 from PySide6.QtGui import QIcon
 from database.database_manager import get_all_settings, save_setting
-import shutil
-import os
-from datetime import datetime
 
 class SettingsView(QWidget):
     def __init__(self):
         super().__init__()
         self.layout = QVBoxLayout(self)
-        self.layout.setContentsMargins(20, 20, 20, 20); self.layout.setSpacing(20)
+        self.layout.setContentsMargins(20, 20, 20, 20)
+        self.layout.setSpacing(20)
 
         # --- Company Profile Group ---
-        profile_group = QGroupBox("Company Profile")
+        profile_group = QGroupBox("Company Profile for Invoices")
         profile_layout = QFormLayout(profile_group)
         self.company_name_input = QLineEdit()
+        self.company_name_input.setPlaceholderText("e.g., Vibe Coder LLC")
         self.company_address_input = QLineEdit()
-        self.logo_path_input = QLineEdit(); self.logo_path_input.setReadOnly(True)
-        logo_button = QPushButton("Browse for Logo..."); logo_button.clicked.connect(self.browse_logo)
+        self.company_address_input.setPlaceholderText("e.g., 123 Innovation Drive, Tech City")
+        
+        self.logo_path_input = QLineEdit()
+        self.logo_path_input.setPlaceholderText("No logo selected")
+        self.logo_path_input.setReadOnly(True)
+        
+        logo_button = QPushButton("Browse for Logo File...")
+        logo_button.clicked.connect(self.browse_logo)
         
         profile_layout.addRow("Company Name:", self.company_name_input)
         profile_layout.addRow("Company Address:", self.company_address_input)
-        profile_layout.addRow("Logo Path:", self.logo_path_input)
+        profile_layout.addRow("Company Logo:", self.logo_path_input)
         profile_layout.addRow(logo_button)
         
-        save_profile_button = QPushButton("Save Profile"); save_profile_button.setIcon(QIcon("assets/icons/plus-circle.svg"))
+        save_profile_button = QPushButton("Save Profile Settings")
+        save_profile_button.setIcon(QIcon("assets/icons/plus-circle.svg"))
         save_profile_button.clicked.connect(self.save_profile_settings)
         profile_layout.addRow(save_profile_button)
         self.layout.addWidget(profile_group)
@@ -46,21 +55,24 @@ class SettingsView(QWidget):
         self.load_settings()
 
     def load_settings(self):
+        """Loads all saved settings from the database and populates the fields."""
         settings = get_all_settings()
         self.company_name_input.setText(settings.get('company_name', ''))
         self.company_address_input.setText(settings.get('company_address', ''))
         self.logo_path_input.setText(settings.get('logo_path', ''))
 
     def browse_logo(self):
-        path, _ = QFileDialog.getOpenFileName(self, "Select Logo Image", "", "Images (*.png *.jpg)")
+        """Opens a file dialog to select a logo image."""
+        path, _ = QFileDialog.getOpenFileName(self, "Select Logo Image", "", "Image Files (*.png *.jpg)")
         if path:
             self.logo_path_input.setText(path)
 
     def save_profile_settings(self):
+        """Saves all profile settings to the database."""
         save_setting('company_name', self.company_name_input.text())
         save_setting('company_address', self.company_address_input.text())
         save_setting('logo_path', self.logo_path_input.text())
-        QMessageBox.information(self, "Success", "Company profile settings have been saved.")
+        QMessageBox.information(self, "Success", "Company profile settings have been saved successfully.")
 
     def backup_database(self):
         db_path = os.path.join(os.getcwd(), 'database', 'freelancer_hub.db')

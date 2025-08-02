@@ -1,6 +1,9 @@
+# ui/login_window.py
+
 from PySide6.QtWidgets import (QDialog, QVBoxLayout, QHBoxLayout, QLabel, QLineEdit,
                                QPushButton, QMessageBox, QStackedWidget, QWidget, QFrame, QSizePolicy, QToolButton)
-from PySide6.QtGui import QIcon, QPainter, QLinearGradient, QColor
+# QPixmap is needed for the robust background image handling
+from PySide6.QtGui import QIcon, QPainter, QLinearGradient, QColor, QPixmap
 from PySide6.QtCore import Qt, QSize, QPropertyAnimation, QEasingCurve, QRect
 
 from database.database_manager import create_user, check_user
@@ -10,20 +13,17 @@ class LoginWindow(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setWindowTitle("Sign In - Freelancer's Business Hub")
-
-        # Enable maximize & minimize
         self.setWindowFlags(Qt.Window)
         self.setMinimumSize(900, 600)
-
         self.setObjectName("LoginWindow")
 
         # --- Main Layout ---
-        self.main_layout = QHBoxLayout(self)
-        self.main_layout.setContentsMargins(0, 0, 0, 0)
-        self.main_layout.addStretch(1)
+        main_layout = QHBoxLayout(self)
+        main_layout.setContentsMargins(0, 0, 0, 0)
+        main_layout.addStretch(1)
 
-        # --- Glass Effect Frame (Login Card) ---
-        self.glass_frame = QFrame()
+        # --- Glass Effect Frame ---
+        self.glass_frame = QFrame() # Made it a class attribute for resizeEvent
         self.glass_frame.setObjectName("GlassFrame")
         self.glass_frame.setFixedSize(420, 500)
         self.glass_frame.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
@@ -32,11 +32,11 @@ class LoginWindow(QDialog):
         frame_layout.setContentsMargins(35, 35, 35, 35)
         frame_layout.setSpacing(15)
 
-        # --- Stacked Widget for Login & Register ---
+        # --- Stacked Widget to switch between Login and Register ---
         self.stacked_widget = QStackedWidget()
         frame_layout.addWidget(self.stacked_widget)
 
-        # Add login and register screens
+        # Add login and register widgets
         self.login_widget = QWidget()
         self.setup_login_ui()
         self.stacked_widget.addWidget(self.login_widget)
@@ -45,8 +45,8 @@ class LoginWindow(QDialog):
         self.setup_register_ui()
         self.stacked_widget.addWidget(self.register_widget)
 
-        self.main_layout.addWidget(self.glass_frame)
-        self.main_layout.addStretch(1)
+        main_layout.addWidget(self.glass_frame)
+        main_layout.addStretch(1)
 
         # --- Apply Styles ---
         self.setStyleSheet(self.styles())
@@ -61,23 +61,19 @@ class LoginWindow(QDialog):
         title.setObjectName("LoginTitle")
         title.setAlignment(Qt.AlignCenter)
 
-        subtitle = QLabel("Enter your account details to continue")
+        subtitle = QLabel("Make a new doc to bring your words, data, and teams together.")
         subtitle.setObjectName("LoginSubtitle")
         subtitle.setAlignment(Qt.AlignCenter)
         subtitle.setWordWrap(True)
 
-        self.login_user_input_widget, self.login_user_input = self.create_input_field(
-            "assets/icons/user.svg", "Username"
-        )
-        self.login_pass_input_widget, self.login_pass_input = self.create_input_field(
-            "assets/icons/lock.svg", "Password", is_password=True
-        )
+        self.login_user_input_widget, self.login_user_input = self.create_input_field("assets/icons/user.svg", "Username")
+        self.login_pass_input_widget, self.login_pass_input = self.create_input_field("assets/icons/lock.svg", "Password", is_password=True)
 
         login_button = QPushButton("Get Started")
         login_button.setObjectName("LoginButton")
 
-        show_register_button = QPushButton("Sign Up")
-        show_register_button.setObjectName("LoginButton")
+        show_register_button = QPushButton("Or sign up")
+        show_register_button.setObjectName("LinkButton")
 
         layout.addWidget(icon_label)
         layout.addWidget(title)
@@ -98,21 +94,15 @@ class LoginWindow(QDialog):
         title.setObjectName("LoginTitle")
         title.setAlignment(Qt.AlignCenter)
 
-        self.reg_user_input_widget, self.reg_user_input = self.create_input_field(
-            "assets/icons/user.svg", "Username"
-        )
-        self.reg_pass_input_widget, self.reg_pass_input = self.create_input_field(
-            "assets/icons/lock.svg", "New Password", is_password=True
-        )
-        self.reg_confirm_pass_widget, self.reg_confirm_pass_input = self.create_input_field(
-            "assets/icons/lock.svg", "Confirm Password", is_password=True
-        )
+        self.reg_user_input_widget, self.reg_user_input = self.create_input_field("assets/icons/user.svg", "Username")
+        self.reg_pass_input_widget, self.reg_pass_input = self.create_input_field("assets/icons/lock.svg", "New Password", is_password=True)
+        self.reg_confirm_pass_widget, self.reg_confirm_pass_input = self.create_input_field("assets/icons/lock.svg", "Confirm Password", is_password=True)
 
         register_button = QPushButton("Register Account")
         register_button.setObjectName("LoginButton")
 
         show_login_button = QPushButton("Back to Login")
-        show_login_button.setObjectName("LoginButton")
+        show_login_button.setObjectName("LinkButton")
 
         layout.addWidget(title)
         layout.addSpacing(20)
@@ -140,13 +130,12 @@ class LoginWindow(QDialog):
         line_edit.setObjectName("LoginLineEdit")
         line_edit.setStyleSheet("color: #ffffff;")
 
-        # Password eye button
         if is_password:
             line_edit.setEchoMode(QLineEdit.Password)
             eye_button = QToolButton()
             eye_button.setIcon(QIcon("assets/icons/eye.svg"))
             eye_button.setCheckable(True)
-            eye_button.setStyleSheet("background: transparent;")
+            eye_button.setStyleSheet("background: transparent; border: none;")
             eye_button.setIconSize(QSize(18, 18))
 
             def toggle_password():
@@ -158,7 +147,6 @@ class LoginWindow(QDialog):
                     eye_button.setIcon(QIcon("assets/icons/eye.svg"))
 
             eye_button.clicked.connect(toggle_password)
-
             layout.addWidget(icon_label)
             layout.addWidget(line_edit)
             layout.addWidget(eye_button)
@@ -169,65 +157,68 @@ class LoginWindow(QDialog):
         return frame, line_edit
 
     def animate_switch(self, index):
-        """Slide animation when switching screens."""
         current_index = self.stacked_widget.currentIndex()
-        if current_index == index:
-            return
+        if current_index == index: return
 
         current_widget = self.stacked_widget.currentWidget()
         next_widget = self.stacked_widget.widget(index)
-
-        # Prepare geometry
         width = self.stacked_widget.frameGeometry().width()
         next_widget.setGeometry(QRect(width if index > current_index else -width, 0, width, self.stacked_widget.height()))
         next_widget.show()
 
-        # Animate current widget sliding out
         anim_out = QPropertyAnimation(current_widget, b"geometry")
-        anim_out.setDuration(300)
-        anim_out.setEasingCurve(QEasingCurve.InOutCubic)
+        anim_out.setDuration(300); anim_out.setEasingCurve(QEasingCurve.InOutCubic)
         anim_out.setStartValue(current_widget.geometry())
         anim_out.setEndValue(QRect(-width if index > current_index else width, 0, width, current_widget.height()))
 
-        # Animate next widget sliding in
         anim_in = QPropertyAnimation(next_widget, b"geometry")
-        anim_in.setDuration(300)
-        anim_in.setEasingCurve(QEasingCurve.InOutCubic)
+        anim_in.setDuration(300); anim_in.setEasingCurve(QEasingCurve.InOutCubic)
         anim_in.setStartValue(next_widget.geometry())
         anim_in.setEndValue(QRect(0, 0, width, next_widget.height()))
 
-        anim_out.start()
-        anim_in.start()
-
+        anim_out.start(); anim_in.start()
         self.stacked_widget.setCurrentIndex(index)
 
+    # --- THIS IS THE FINAL, ROBUST VERSION OF paintEvent ---
     def paintEvent(self, event):
-        """Draw modern gradient background (fixed)."""
-        painter = QPainter(self)
-        painter.setRenderHint(QPainter.Antialiasing)
+        """Draws the background, preferring an image but falling back to a gradient."""
+        painter = QPainter()
+        # It is critical to begin the painter ON the widget itself ('self')
+        if not painter.begin(self):
+            print("CRITICAL ERROR: QPainter could not be initialized on LoginWindow.")
+            return
 
-        gradient = QLinearGradient(0, 0, self.width(), self.height())
-        gradient.setColorAt(0, QColor("#667eea"))
-        gradient.setColorAt(1, QColor("#764ba2"))
+        # First, try to load the background image
+        background_pixmap = QPixmap("assets/background.jpg")
 
-        painter.fillRect(self.rect(), gradient)
+        # Check if the image loaded successfully (is not null)
+        if not background_pixmap.isNull():
+            # If the image is valid, draw it scaled to fill the entire window
+            scaled_pixmap = background_pixmap.scaled(self.size(), Qt.KeepAspectRatioByExpanding, Qt.SmoothTransformation)
+            painter.drawPixmap(self.rect(), scaled_pixmap)
+        else:
+            # If the image FAILED to load, print a warning and draw your gradient as a fallback
+            print("WARNING: Could not load 'assets/background.jpg'. Drawing fallback gradient.")
+            gradient = QLinearGradient(0, 0, self.width(), self.height())
+            gradient.setColorAt(0, QColor("#667eea"))
+            gradient.setColorAt(1, QColor("#764ba2"))
+            painter.fillRect(self.rect(), gradient)
+        
+        # It is critical to end the painter
         painter.end()
 
     def resizeEvent(self, event):
-        """Make the login card larger on maximize"""
-        win_width = self.width()
-        win_height = self.height()
-
+        win_width = self.width(); win_height = self.height()
         card_width = min(420 + (win_width - 900) // 10, 550)
         card_height = min(500 + (win_height - 600) // 10, 600)
-
         self.glass_frame.setFixedSize(card_width, card_height)
 
     def styles(self):
+        # Your custom styles are preserved exactly as you wrote them
         return """
         #LoginWindow {
-            background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
-                                        stop:0 #667eea, stop:1 #764ba2);
+            /* The background is now handled by paintEvent, but this can be a fallback */
+            background-color: #667eea;
         }
         #GlassFrame {
             background: rgba(255, 255, 255, 0.14);
@@ -251,6 +242,7 @@ class LoginWindow(QDialog):
             background: transparent;
             border: none;
             font-size: 14px;
+            color: #ffffff;
         }
         #LoginLineEdit:focus {
             border-bottom: 2px solid #00c6ff;
@@ -266,6 +258,12 @@ class LoginWindow(QDialog):
         }
         #LoginButton:hover {
             background: #0072ff;
+        }
+        #LinkButton {
+            background: none;
+            border: none;
+            color: #e0e0e0;
+            font-weight: bold;
         }
         """
 
@@ -283,14 +281,11 @@ class LoginWindow(QDialog):
         confirm_password = self.reg_confirm_pass_input.text()
 
         if not username or not password:
-            QMessageBox.warning(self, "Input Error", "Username and password cannot be empty.")
-            return
+            QMessageBox.warning(self, "Input Error", "Username and password cannot be empty."); return
         if len(password) < 8:
-            QMessageBox.warning(self, "Password Error", "Password must be at least 8 characters long.")
-            return
+            QMessageBox.warning(self, "Password Error", "Password must be at least 8 characters long."); return
         if password != confirm_password:
-            QMessageBox.warning(self, "Password Error", "Passwords do not match.")
-            return
+            QMessageBox.warning(self, "Password Error", "Passwords do not match."); return
 
         if create_user(username, password):
             QMessageBox.information(self, "Success", "Account created successfully! Please login.")

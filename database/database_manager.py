@@ -5,16 +5,18 @@ import os
 import bcrypt
 from datetime import datetime
 
+# --- Database Setup ---
+DB_DIR = os.path.dirname(__file__)
+DB_FILE = os.path.join(DB_DIR, "freelancer_hub.db") # CORRECTED PATH
+
 def get_db_connection():
-    db_path = os.path.join(os.path.dirname(__file__), 'database.sqlite3')
-    conn = sqlite3.connect(db_path)
+    """Establishes and returns a connection to the SQLite database."""
+    conn = sqlite3.connect(DB_FILE)
     conn.row_factory = sqlite3.Row
+    conn.execute("PRAGMA foreign_keys = ON")
     return conn
 
-# --- All code from your provided file is here and correct ---
-# PASTE ALL THE CODE YOU PROVIDED FOR THIS FILE (from initialize_database to get_monthly_income_summary)
-# ...
-
+# --- The rest of your file is unchanged until the delete section ---
 def initialize_database():
     conn = get_db_connection()
     cursor = conn.cursor()
@@ -114,31 +116,17 @@ def get_dashboard_kpis(): conn = get_db_connection(); total_revenue_data = conn.
 def get_recent_activity(limit=5): conn = get_db_connection(); activity = conn.execute("SELECT te.start_time, te.duration_minutes, te.description, p.name as project_name FROM time_entries te JOIN projects p ON te.project_id = p.id WHERE te.duration_minutes IS NOT NULL ORDER BY te.start_time DESC LIMIT ?", (limit,)).fetchall(); conn.close(); return [dict(row) for row in activity]
 def get_monthly_income_summary(months=6): conn = get_db_connection(); summary = conn.execute("SELECT strftime('%Y-%m', issue_date) as month, SUM(total_amount) as total FROM invoices WHERE status = 'Paid' AND issue_date >= date('now', '-' || ? || ' months') GROUP BY month ORDER BY month ASC", (months,)).fetchall(); conn.close(); return {row['month']: row['total'] for row in summary}
 
-# --- NEW: Delete Functions ---
-def delete_client(client_id):
-    """Deletes a client. Associated projects/invoices will be cascade deleted by the database."""
-    conn = get_db_connection()
-    conn.execute("DELETE FROM clients WHERE id = ?", (client_id,))
-    conn.commit()
-    conn.close()
+# --- Delete Functions ---
+def delete_client(client_id): conn = get_db_connection(); conn.execute("DELETE FROM clients WHERE id = ?", (client_id,)); conn.commit(); conn.close()
+def delete_project(project_id): conn = get_db_connection(); conn.execute("DELETE FROM projects WHERE id = ?", (project_id,)); conn.commit(); conn.close()
+def delete_invoice(invoice_id): conn = get_db_connection(); conn.execute("UPDATE time_entries SET is_billed = 0, invoice_id = NULL WHERE invoice_id = ?", (invoice_id,)); conn.execute("DELETE FROM invoices WHERE id = ?", (invoice_id,)); conn.commit(); conn.close()
+def delete_expense(expense_id): conn = get_db_connection(); conn.execute("DELETE FROM expenses WHERE id = ?", (expense_id,)); conn.commit(); conn.close()
 
-def delete_project(project_id):
+# --- NEW: Function to delete a time entry ---
+def delete_time_entry(entry_id):
+    """Deletes a single time entry record from the database."""
     conn = get_db_connection()
-    conn.execute("DELETE FROM projects WHERE id = ?", (project_id,))
-    conn.commit()
-    conn.close()
-
-def delete_invoice(invoice_id):
-    conn = get_db_connection()
-    # Un-bill associated time entries before deleting the invoice
-    conn.execute("UPDATE time_entries SET is_billed = 0, invoice_id = NULL WHERE invoice_id = ?", (invoice_id,))
-    conn.execute("DELETE FROM invoices WHERE id = ?", (invoice_id,))
-    conn.commit()
-    conn.close()
-
-def delete_expense(expense_id):
-    conn = get_db_connection()
-    conn.execute("DELETE FROM expenses WHERE id = ?", (expense_id,))
+    conn.execute("DELETE FROM time_entries WHERE id = ?", (entry_id,))
     conn.commit()
     conn.close()
 
