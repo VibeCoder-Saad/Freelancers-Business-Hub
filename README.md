@@ -103,3 +103,22 @@ Start the application with a single command from the root project directory:
 
 ```bash
 python main.py
+
+On the first run, you will be prompted to create a primary admin account. After that, the login screen will appear every time you launch the app.
+📁 Project Structure
+freelancer_hub/
+│
+├── main.py                 # The Application Launcher
+├── assets/                 # Icons, backgrounds, and documentation images
+├── database/
+│   └── database_manager.py # Manages all SQLite database operations
+├── shared/
+│   └── pdf_generator.py    # Utility for creating invoice PDFs
+└── ui/
+    ├── login_window.py     # Secure login and registration screen
+    ├── main_window.py      # The main application container with all tabs
+    ├── styles.py           # The application-wide QSS stylesheet
+    ├── views/              # Each feature's UI is a separate "view"
+    └── widgets/            # Reusable custom UI components like charts
+📄 License
+This project is licensed under the MIT License. See the LICENSE file for details.
