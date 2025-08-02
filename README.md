@@ -57,8 +57,8 @@ This application transforms your desktop into a complete command center for your
     <td align="center"><b>Settings & Data Backup</b></td>
   </tr>
   <tr>
-    <td><img src="https://github.com/VibeCoder-Saad/Freelancers-Business-Hub/blob/main/assets/docs/clients.PNG?raw=true" alt="Clients" width="400"/></td>
-    <td><img src="https://github.com/VibeCoder-Saad/Freelancers-Business-Hub/blob/main/assets/docs/settings.PNG?raw=true" alt="Settings" width="400"/></td>
+    <td><img src="https://github.com/VibeCoder-Saad/Freelancers-Business-Hub/blob/main/assets/docs/Clients.PNG?raw=true" alt="Clients" width="400"/></td>
+    <td><img src="https://github.com/VibeCoder-Saad/Freelancers-Business-Hub/blob/main/assets/docs/Settings.PNG?raw=true" alt="Settings" width="400"/></td>
   </tr>
 </table>
 
