@@ -41,24 +41,24 @@ This application transforms your desktop into a complete command center for your
     <td align="center"><b>Interactive Project Hub</b></td>
   </tr>
   <tr>
-    <td><img src="https://github.com/VibeCoder-Saad/Freelancers-Business-Hub/blob/main/assets/docs/signin.png?raw=true" alt="Login Screen" width="400"/></td>
-    <td><img src="https://github.com/VibeCoder-Saad/Freelancers-Business-Hub/blob/main/assets/docs/ProjectHub.png?raw=true" alt="Project Hub" width="400"/></td>
+    <td><img src="https://github.com/VibeCoder-Saad/Freelancers-Business-Hub/blob/main/assets/docs/signin.PNG?raw=true" alt="Login Screen" width="400"/></td>
+    <td><img src="https://github.com/VibeCoder-Saad/Freelancers-Business-Hub/blob/main/assets/docs/ProjectHub.PNG?raw=true" alt="Project Hub" width="400"/></td>
   </tr>
   <tr>
     <td align="center"><b>Live Time Tracking</b></td>
     <td align="center"><b>Automated Invoicing</b></td>
   </tr>
   <tr>
-    <td><img src="https://github.com/VibeCoder-Saad/Freelancers-Business-Hub/blob/main/assets/docs/timetracking.png?raw=true" alt="Time Tracking" width="400"/></td>
-    <td><img src="https://github.com/VibeCoder-Saad/Freelancers-Business-Hub/blob/main/assets/docs/Invoices.png?raw=true" alt="Invoices" width="400"/></td>
+    <td><img src="https://github.com/VibeCoder-Saad/Freelancers-Business-Hub/blob/main/assets/docs/timetracking.PNG?raw=true" alt="Time Tracking" width="400"/></td>
+    <td><img src="https://github.com/VibeCoder-Saad/Freelancers-Business-Hub/blob/main/assets/docs/Invoices.PNG?raw=true" alt="Invoices" width="400"/></td>
   </tr>
   <tr>
     <td align="center"><b>Client Management</b></td>
     <td align="center"><b>Settings & Data Backup</b></td>
   </tr>
   <tr>
-    <td><img src="https://github.com/VibeCoder-Saad/Freelancers-Business-Hub/blob/main/assets/docs/clients.png?raw=true" alt="Clients" width="400"/></td>
-    <td><img src="https://github.com/VibeCoder-Saad/Freelancers-Business-Hub/blob/main/assets/docs/settings.png?raw=true" alt="Settings" width="400"/></td>
+    <td><img src="https://github.com/VibeCoder-Saad/Freelancers-Business-Hub/blob/main/assets/docs/clients.PNG?raw=true" alt="Clients" width="400"/></td>
+    <td><img src="https://github.com/VibeCoder-Saad/Freelancers-Business-Hub/blob/main/assets/docs/settings.PNG?raw=true" alt="Settings" width="400"/></td>
   </tr>
 </table>
 
