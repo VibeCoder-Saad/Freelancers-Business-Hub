@@ -1,7 +1,7 @@
 #  freelancers-business-hub
 
 <p align="center">
-  <img src="https://i.ibb.co/jPDmpxZ/briefcase.png" alt="App Logo" width="128"/>
+  <img src="https://i.ibb.co/jPDmpxZ/briefcase.png" alt="App Logo"/>
 </p>
 
 <h1 align="center">Freelancer's Business Hub</h1>
