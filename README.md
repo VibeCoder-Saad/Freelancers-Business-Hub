@@ -36,64 +36,64 @@
 
 <br /> 
 
-# 📋 Table of Contents
+# Table of Contents
 
-- [Overview](#-overview)
-- [Key Features](#-key-features)
-- [Visual Showcase](#-visual-showcase)
-- [Installation](#-installation)
-- [Technology Stack](#-technology-stack)
-- [Project Structure](#-project-structure)
-- [License](#-license)
+- [Overview](#overview)
+- [Key Features](#key-features)
+- [Visual Showcase](#visual-showcase)
+- [Installation](#installation)
+- [Technology Stack](#technology-stack)
+- [Project Structure](#project-structure)
+- [License](#license)
 
 ---
 
-# ⚡ Overview
+# Overview
 
-**Freelancer's Business Hub** is a professional desktop application designed to replace scattered spreadsheets and online subscriptions. It offers a **secure, offline-first** environment where you own your data. Whether you are a developer, designer, or consultant, this tool helps you stay on top of your business/
+**Freelancer's Business Hub** is a professional desktop application designed to replace scattered spreadsheets and online subscriptions. It offers a **secure, offline-first** environment where you own your data. Whether you are a developer, designer, or consultant, this tool helps you stay on top of your business.
 
 > **Privacy Focused**: No cloud, no tracking, no monthly fees. Your financial data stays on your machine.
 
 ---
 
-# 🚀 Key Features
+# Key Features
 
 <table>
   <tr>
     <td width="50%">
-      <h3>🔐 Secure Local Login</h3>
-      <p>Enterprise-grade security on your desktop. Your data is protected by a custom encryption system and a beautiful, animated login screen using <code>bcrypt</code> hashing.</p>
+      <h3>Secure Local Login</h3>
+      <p>Enterprise-grade security on your desktop. Your data is protected by a custom encryption system and a beautiful login screen using <code>bcrypt</code> hashing.</p>
     </td>
     <td width="50%">
-      <h3>📊 Analytics Dashboard</h3>
+      <h3>Analytics Dashboard</h3>
       <p>Make data-driven decisions. Visualize your revenue, active projects, and client growth with real-time, interactive charts powered by <code>Matplotlib</code>.</p>
     </td>
   </tr>
   <tr>
     <td width="50%">
-      <h3>🗂️ Project Command Center</h3>
+      <h3>Project Command Center</h3>
       <p>A dedicated hub for every project. Track budget usage, view time logs, manage invoices, and store project notes in one unified view.</p>
     </td>
     <td width="50%">
-      <h3>⏱️ Precision Time Tracking</h3>
+      <h3>Precision Time Tracking</h3>
       <p>Never lose a billable minute. The integrated "Start/Stop" timer logs sessions directly to projects, ready for instant invoicing.</p>
     </td>
   </tr>
   <tr>
     <td width="50%">
-      <h3>💵 One-Click Invoicing</h3>
+      <h3>One-Click Invoicing</h3>
       <p>Turn time into money. Generate professional PDF invoices automatically from your time logs. Customize them with your logo and brand colors.</p>
     </td>
     <td width="50%">
-      <h3>🧾 Expense Manager</h3>
-      <p>Keep your profits clear. Log business expenses, categorize them (Software, Hardware, Travel), and attach digital receipts for tax season.</p>
+      <h3>Expense Manager</h3>
+      <p>Keep your profits clear. Log business expenses, categorize them (Software, Hardware, Travel), and attach digital receipts for perfect record-keeping.</p>
     </td>
   </tr>
 </table>
 
 ---
 
-# 🎨 Visual Showcase
+# Visual Showcase
 
 <div align="center">
 
@@ -111,7 +111,7 @@
 
 ---
 
-# 💻 Installation
+# Installation
 
 Get up and running in minutes.
 
@@ -140,7 +140,7 @@ Get up and running in minutes.
 
 ---
 
-# 🏗️ Technology Stack
+# Technology Stack
 
 This project is built with a focus on performance, native look-and-feel, and maintainability.
 
@@ -155,19 +155,19 @@ This project is built with a focus on performance, native look-and-feel, and mai
 
 ---
 
-# 📁 Project Structure
+# Project Structure
 
 ```bash
 freelancer_hub/
-├── main.py                 # 🚀 Entry Point
-├── assets/                 # 🎨 Static Assets (Icons, Images)
-├── database/               # 💾 Persistence Layer
+├── main.py                 # Entry Point
+├── assets/                 # Static Assets (Icons, Images)
+├── database/               # Persistence Layer
 │   └── database_manager.py 
-├── shared/                 # 🛠️ Utilities
+├── shared/                 # Utilities
 │   └── pdf_generator.py    
-└── ui/                     # 🖥️ Presentation Layer
-    ├── views/              #    Feature Screens (Dashboard, Projects, etc.)
-    ├── widgets/            #    Reusable Components (Charts, Cards)
+└── ui/                     # Presentation Layer
+    ├── views/              # Feature Screens (Dashboard, Projects, etc.)
+    ├── widgets/            # Reusable Components (Charts, Cards)
     ├── login_window.py     
     ├── main_window.py      
     └── styles.py           
@@ -175,6 +175,6 @@ freelancer_hub/
 
 ---
 
-# 📄 License
+# License
 
 Distributed under the **MIT License**. See `LICENSE` for more information.
