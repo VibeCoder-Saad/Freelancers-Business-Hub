@@ -44,11 +44,32 @@ class SettingsView(QWidget):
         # --- Data Management Group ---
         data_group = QGroupBox("Data Management")
         data_layout = QVBoxLayout(data_group)
-        backup_button = QPushButton("Backup Database Now"); backup_button.setIcon(QIcon("assets/icons/database.svg"))
-        restore_button = QPushButton("Restore from Backup"); restore_button.setIcon(QIcon("assets/icons/database.svg"))
+        
+        # Database Actions
+        db_actions_layout = QHBoxLayout()
+        backup_button = QPushButton("Backup Database"); backup_button.setIcon(QIcon("assets/icons/database.svg"))
+        restore_button = QPushButton("Restore Backup"); restore_button.setIcon(QIcon("assets/icons/database.svg"))
+        db_actions_layout.addWidget(backup_button)
+        db_actions_layout.addWidget(restore_button)
+        
+        # Export Actions
+        export_layout = QHBoxLayout()
+        self.export_projects_btn = QPushButton("Export Projects (CSV)")
+        self.export_projects_btn.setIcon(QIcon("assets/icons/download.svg"))
+        self.export_clients_btn = QPushButton("Export Clients (CSV)")
+        self.export_clients_btn.setIcon(QIcon("assets/icons/users.svg"))
+        export_layout.addWidget(self.export_projects_btn)
+        export_layout.addWidget(self.export_clients_btn)
+        
+        data_layout.addLayout(db_actions_layout)
+        data_layout.addWidget(QLabel("Export Data:"))
+        data_layout.addLayout(export_layout)
+
         backup_button.clicked.connect(self.backup_database)
         restore_button.clicked.connect(self.restore_database)
-        data_layout.addWidget(backup_button); data_layout.addWidget(restore_button)
+        self.export_projects_btn.clicked.connect(self.export_projects)
+        self.export_clients_btn.clicked.connect(self.export_clients)
+
         self.layout.addWidget(data_group)
 
         self.layout.addStretch()
@@ -105,3 +126,36 @@ class SettingsView(QWidget):
                 QMessageBox.information(self, "Success", "Database successfully restored.\nPlease restart the application for changes to take effect.")
             except Exception as e:
                 QMessageBox.critical(self, "Restore Failed", f"An error occurred: {e}")
+
+    def export_projects(self):
+        from database.database_manager import get_all_projects_with_client_name
+        from shared.export_manager import export_to_csv
+        
+        # Fetch Data
+        raw_data = get_all_projects_with_client_name() # Returns list of dicts
+        
+        # Prepare for CSV (order matters)
+        headers = ["Project ID", "Name", "Client", "Rate", "Status"]
+        rows = []
+        for p in raw_data:
+            rows.append([
+                p.get("id"),
+                p.get("name"),
+                p.get("client_name"),
+                f"${p.get('rate', 0)}/hr",
+                p.get("status", "Pending")
+            ])
+            
+        export_to_csv(self, headers, rows, "projects_export.csv")
+
+    def export_clients(self):
+        from database.database_manager import get_all_clients
+        from shared.export_manager import export_to_csv
+        
+        raw_data = get_all_clients()
+        headers = ["Client ID", "Name", "Email", "Phone"]
+        rows = []
+        for c in raw_data:
+            rows.append([c.get("id"), c.get("name"), c.get("email"), c.get("phone")])
+            
+        export_to_csv(self, headers, rows, "clients_export.csv")
