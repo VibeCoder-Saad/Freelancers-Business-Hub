@@ -81,6 +81,55 @@ QWidget {
 #KPILabel { background-color: transparent; font-size: 13px; color: #bac2de; }
 #KPITitle { background-color: transparent; font-size: 14px; font-weight: bold; color: #89b4fa; }
 
+/* --- KANBAN BOARD --- */
+#KanbanColumn {
+    background-color: rgba(30, 30, 46, 0.4);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+#KanbanColumnHeader {
+    font-size: 16px;
+    font-weight: bold;
+    color: #89b4fa;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+#KanbanScroll {
+    background: transparent;
+    border: none;
+}
+#KanbanContent {
+    background: transparent;
+}
+#KanbanCard {
+    background-color: rgba(49, 50, 68, 0.9);
+    border-radius: 8px;
+    border-left: 4px solid #cba6f7; /* Card Accent */
+    margin: 4px;
+}
+#KanbanCard:hover {
+    background-color: rgba(69, 71, 90, 1.0);
+    border: 1px solid #89b4fa;
+    border-left: 4px solid #cba6f7;
+}
+#KanbanCardTitle {
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffffff;
+}
+#KanbanCardDetail {
+    font-size: 11px;
+    color: #bac2de;
+}
+#KanbanCardBudget {
+    font-size: 12px;
+    font-weight: bold;
+    color: #a6e3a1; /* Green */
+    alignment: right;
+}
+
 /* --- BUTTONS (Action Buttons inside pages) --- */
 QPushButton { 
     background-color: #89b4fa; 

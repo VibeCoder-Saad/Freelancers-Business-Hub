@@ -3,7 +3,7 @@
 from PySide6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QLabel, QTableWidget,
                                QTableWidgetItem, QHeaderView, QSplitter, QPushButton,
                                QMessageBox, QDialog, QFormLayout, QLineEdit, QComboBox,
-                               QDoubleSpinBox, QDialogButtonBox, QFrame)
+                               QDoubleSpinBox, QDialogButtonBox, QFrame, QTabWidget)
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QIcon
 from database.database_manager import (get_all_projects_with_client_name, get_project_details,
@@ -11,6 +11,9 @@ from database.database_manager import (get_all_projects_with_client_name, get_pr
                                        get_project_financial_summary, add_project, get_all_clients,
                                        delete_project)
 from datetime import datetime, timedelta
+
+# Import Kanban Board
+from ..widgets.kanban_board import KanbanBoard
 
 class ProjectDialog(QDialog):
     """A dialog for adding new projects."""
@@ -48,15 +51,26 @@ class ProjectDialog(QDialog):
 class ProjectHubView(QWidget):
     def __init__(self):
         super().__init__()
-        self.layout = QHBoxLayout(self)
-        self.layout.setContentsMargins(0, 0, 0, 0)
-        self.splitter = QSplitter(Qt.Horizontal)
-        self.layout.addWidget(self.splitter)
+        self.layout = QVBoxLayout(self)
+        self.layout.setContentsMargins(10, 10, 10, 10)
 
-        # --- Left Panel: Project List ---
-        left_panel = QFrame(); left_panel.setContentsMargins(10,10,10,10)
+        # --- View Switcher (List vs Board) ---
+        self.view_tabs = QTabWidget()
+        self.layout.addWidget(self.view_tabs)
+
+        # --- Tab 1: List View (Original Splitter) ---
+        self.list_view_widget = QWidget()
+        list_layout = QVBoxLayout(self.list_view_widget)
+        list_layout.setContentsMargins(0, 0, 0, 0)
+        
+        self.splitter = QSplitter(Qt.Horizontal)
+        list_layout.addWidget(self.splitter)
+
+        # Left Panel: Project List
+        left_panel = QFrame(); left_panel.setContentsMargins(0,0,10,0)
         left_layout = QVBoxLayout(left_panel)
-        header = QLabel("All Projects"); header.setObjectName("HeaderLabel")
+        header = QLabel("Active Projects"); header.setObjectName("HeaderLabel")
+        
         self.projects_table = QTableWidget(); self.projects_table.setColumnCount(2)
         self.projects_table.setHorizontalHeaderLabels(["Project", "Client"])
         self.projects_table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
@@ -64,7 +78,7 @@ class ProjectHubView(QWidget):
         self.projects_table.setEditTriggers(QTableWidget.NoEditTriggers)
         
         button_layout = QHBoxLayout()
-        self.delete_project_button = QPushButton("Delete Project"); self.delete_project_button.setIcon(QIcon("assets/icons/trash-2.svg"))
+        self.delete_project_button = QPushButton("Delete"); self.delete_project_button.setIcon(QIcon("assets/icons/trash-2.svg"))
         self.add_project_button = QPushButton("New Project"); self.add_project_button.setIcon(QIcon("assets/icons/plus-circle.svg"))
         button_layout.addWidget(self.delete_project_button)
         button_layout.addStretch(1)
@@ -74,10 +88,10 @@ class ProjectHubView(QWidget):
         left_layout.addWidget(self.projects_table)
         left_layout.addLayout(button_layout)
         
-        # --- Right Panel: Project Dashboard ---
-        self.right_panel = QFrame(); self.right_panel.setContentsMargins(10,10,10,10)
+        # Right Panel: Project Dashboard
+        self.right_panel = QFrame(); self.right_panel.setContentsMargins(10,0,0,0)
         self.right_layout = QVBoxLayout(self.right_panel)
-        self.placeholder_label = QLabel("Select a project to view its Hub"); self.placeholder_label.setAlignment(Qt.AlignCenter)
+        self.placeholder_label = QLabel("Select a project to view details"); self.placeholder_label.setAlignment(Qt.AlignCenter)
         self.dashboard_widget = QWidget(); self.dashboard_widget.setVisible(False)
         self.right_layout.addWidget(self.placeholder_label)
         self.right_layout.addWidget(self.dashboard_widget)
@@ -90,11 +104,33 @@ class ProjectHubView(QWidget):
         self.add_project_button.clicked.connect(self.show_add_project_dialog)
         self.delete_project_button.clicked.connect(self.delete_selected_project)
 
+        # --- Tab 2: Kanban Board ---
+        self.kanban_widget = KanbanBoard()
+
+        # Add tabs
+        self.view_tabs.addTab(self.list_view_widget, QIcon("assets/icons/list.svg"), "List View")
+        self.view_tabs.addTab(self.kanban_widget, QIcon("assets/icons/trello.svg"), "Task Board")
+        
+        self.view_tabs.currentChanged.connect(self.on_tab_changed)
+
     def refresh_data(self):
-        """Called when tab is selected. Refreshes the project list and resets the dashboard."""
+        """Called when tab is selected. Refreshes data for both views."""
         self.refresh_project_list()
+        self.refresh_kanban()
         self.placeholder_label.setVisible(True)
         self.dashboard_widget.setVisible(False)
+
+    def on_tab_changed(self, index):
+        if index == 1: # Kanban
+            self.refresh_kanban()
+        else:
+            self.refresh_project_list()
+
+    def refresh_kanban(self):
+        """Loads projects into the Kanban Board."""
+        projects = get_all_projects_with_client_name() # Returns dicts 
+        # Convert to list of dicts if needed, logic is handled inside board
+        self.kanban_widget.load_projects(projects)
 
     def refresh_project_list(self):
         """Refreshes the project list table and stores the project ID in each row."""
@@ -113,13 +149,13 @@ class ProjectHubView(QWidget):
             self.placeholder_label.setVisible(True)
             self.dashboard_widget.setVisible(False)
             return
-
+        
         self.placeholder_label.setVisible(False)
         self.dashboard_widget.setVisible(True)
         project_id = selected_items[0].data(Qt.UserRole)
         
         details = get_project_details(project_id)
-        if not details: # If project was deleted, details will be None
+        if not details: 
             self.refresh_data()
             return
 
@@ -154,7 +190,6 @@ class ProjectHubView(QWidget):
         layout.addWidget(value_label); layout.addWidget(text_label); return widget
 
     def create_time_table(self, entries):
-        """Creates the time entry table, safely handling running timers."""
         table = QTableWidget()
         table.setColumnCount(3)
         table.setHorizontalHeaderLabels(["Date", "Duration", "Description"])
@@ -163,18 +198,11 @@ class ProjectHubView(QWidget):
         table.setEditTriggers(QTableWidget.NoEditTriggers)
         
         for r, entry in enumerate(entries):
-            # --- THIS IS THE BUG FIX ---
-            # 1. Get the duration value from the database entry.
             duration_minutes = entry.get('duration_minutes')
-
-            # 2. Check if the duration is None (meaning the timer is still active).
             if duration_minutes is None:
                 duration_text = "Running..."
             else:
-                # 3. If it has a value, format it as a time delta.
                 duration_text = str(timedelta(minutes=duration_minutes))
-            # --- End of Bug Fix ---
-
             date_str = datetime.fromisoformat(entry['start_time']).strftime('%Y-%m-%d %H:%M')
             
             table.setItem(r, 0, QTableWidgetItem(date_str))
