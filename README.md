@@ -1,117 +1,126 @@
-# Freelancer's Business Hub
-
 <div align="center">
-  <img src="https://github.com/VibeCoder-Saad/Freelancers-Business-Hub/blob/main/assets/docs/Logo.png?raw=true" alt="App Logo" width="160"/>
-  <br><br>
 
-  [![Python](https://img.shields.io/badge/Python-3.7%2B-blue?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
-  [![PySide6](https://img.shields.io/badge/GUI-PySide6-green?style=for-the-badge&logo=qt&logoColor=white)](https://doc.qt.io/qtforpython/)
-  [![License](https://img.shields.io/badge/License-MIT-purple?style=for-the-badge)](LICENSE)
-  [![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey?style=for-the-badge)](https://github.com/VibeCoder-Saad/Freelancers-Business-Hub)
-
-  <h1>Manage Your Business logic Offline & Securely</h1>
-
+  <img src="https://github.com/VibeCoder-Saad/Freelancers-Business-Hub/blob/main/assets/docs/Logo.png?raw=true" alt="logo" width="200" height="auto" />
+  <h1>Freelancer's Business Hub</h1>
+  
   <p>
-    <b>Freelancer's Business Hub</b> is a modern, professional, and fully standalone desktop application built to empower freelancers. <br>
-    Manage clients, projects, time tracking, and invoicing in one secure, private, and offline-first environment.
+    <b>The All-In-One Offline Command Center for Freelancers</b>
+  </p>
+  
+  <p>
+    Manage clients, track time, generate invoices, and analyze revenue—securely and locally.
   </p>
 
-  <br>
-  
-  <img src="https://github.com/VibeCoder-Saad/Freelancers-Business-Hub/blob/main/assets/docs/Dashboard.PNG?raw=true" alt="Application Dashboard Screenshot" width="100%" style="border-radius: 10px; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);"/>
+
+<!-- Badges -->
+<p>
+  <a href="https://www.python.org/">
+    <img src="https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="python"/>
+  </a>
+  <a href="https://doc.qt.io/qtforpython/">
+    <img src="https://img.shields.io/badge/PySide6-GUI-41CD52?style=for-the-badge&logo=qt&logoColor=white" alt="pyside6"/>
+  </a>
+  <a href="https://sqlite.org/">
+    <img src="https://img.shields.io/badge/SQLite-Database-003B57?style=for-the-badge&logo=sqlite&logoColor=white" alt="sqlite"/>
+  </a>
+  <a href="LICENSE">
+    <img src="https://img.shields.io/badge/License-MIT-purple?style=for-the-badge" alt="license"/>
+  </a>
+</p>
+
+<br />
+
+<img src="https://github.com/VibeCoder-Saad/Freelancers-Business-Hub/blob/main/assets/docs/Dashboard.PNG?raw=true" alt="Dashboard" width="100%" />
+
 </div>
 
----
+<br /> 
 
-## 📑 Table of Contents
+# 📋 Table of Contents
 
-- [✨ Core Features](#-core-features)
-- [🖼️ Gallery](#-gallery)
-- [🛠️ Tech Stack](#-tech-stack)
-- [🚀 Getting Started](#-getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-- [📁 Project Structure](#-project-structure)
-- [📄 License](#-license)
-
----
-
-## ✨ Core Features
-
-This application transforms your desktop into a complete command center for your freelance business.
-
-| Feature | Description |
-| :--- | :--- |
-| **🔐 Secure Local Login** | Your data is protected by a beautiful, animated login screen and a secure, local user account system using password hashing (`bcrypt`). |
-| **📊 Analytics Dashboard** | Get an instant, at-a-glance overview of your business's financial health with live-updating KPIs and charts for revenue and activity. |
-| **🗂️ The Project Hub** | A powerful, interactive command center providing a 360-degree view of any selected project, including its financials, time logs, and invoices. |
-| **⏱️ Live Time Tracking** | An integrated "Start/Stop" timer to accurately log every billable minute against specific projects. |
-| **💵 Automated Invoicing** | Generate professional, clean PDF invoices from your logged time entries with a single click, complete with your custom company logo. |
-| **🧾 Expense Tracking** | Meticulously log all business costs, categorize them, and attach digital receipts for perfect record-keeping. |
-| **👥 Client Management** | A simple yet effective CRM to keep track of all your clients and their contact information. |
-| **⚙️ Settings & Backup** | Customize your company profile, upload your logo, and easily back up or restore your entire business database with a single click. |
-| **🎨 Modern UI** | A beautiful, responsive, and colorful user interface built with modern design principles and a dark theme. |
-| **🔒 100% Private** | **No cloud services, no monthly fees, no internet required.** All your sensitive data is stored securely on your local machine. |
+- [Overview](#-overview)
+- [Key Features](#-key-features)
+- [Visual Showcase](#-visual-showcase)
+- [Installation](#-installation)
+- [Technology Stack](#-technology-stack)
+- [Project Structure](#-project-structure)
+- [License](#-license)
 
 ---
 
-## 🖼️ Gallery
+# ⚡ Overview
 
-Explore the beautiful interface designed for productivity.
+**Freelancer's Business Hub** is a professional desktop application designed to replace scattered spreadsheets and online subscriptions. It offers a **secure, offline-first** environment where you own your data. Whether you are a developer, designer, or consultant, this tool helps you stay on top of your business/
 
-<div align="center">
+> **Privacy Focused**: No cloud, no tracking, no monthly fees. Your financial data stays on your machine.
+
+---
+
+# 🚀 Key Features
+
 <table>
   <tr>
-    <td align="center"><b>Stunning Animated Login</b></td>
-    <td align="center"><b>Interactive Project Hub</b></td>
+    <td width="50%">
+      <h3>🔐 Secure Local Login</h3>
+      <p>Enterprise-grade security on your desktop. Your data is protected by a custom encryption system and a beautiful, animated login screen using <code>bcrypt</code> hashing.</p>
+    </td>
+    <td width="50%">
+      <h3>📊 Analytics Dashboard</h3>
+      <p>Make data-driven decisions. Visualize your revenue, active projects, and client growth with real-time, interactive charts powered by <code>Matplotlib</code>.</p>
+    </td>
   </tr>
   <tr>
-    <td><img src="https://github.com/VibeCoder-Saad/Freelancers-Business-Hub/blob/main/assets/docs/signin.PNG?raw=true" alt="Login Screen" width="100%"/></td>
-    <td><img src="https://github.com/VibeCoder-Saad/Freelancers-Business-Hub/blob/main/assets/docs/ProjectHub.PNG?raw=true" alt="Project Hub" width="100%"/></td>
+    <td width="50%">
+      <h3>🗂️ Project Command Center</h3>
+      <p>A dedicated hub for every project. Track budget usage, view time logs, manage invoices, and store project notes in one unified view.</p>
+    </td>
+    <td width="50%">
+      <h3>⏱️ Precision Time Tracking</h3>
+      <p>Never lose a billable minute. The integrated "Start/Stop" timer logs sessions directly to projects, ready for instant invoicing.</p>
+    </td>
   </tr>
   <tr>
-    <td align="center"><b>Live Time Tracking</b></td>
-    <td align="center"><b>Automated Invoicing</b></td>
-  </tr>
-  <tr>
-    <td><img src="https://github.com/VibeCoder-Saad/Freelancers-Business-Hub/blob/main/assets/docs/timetracking.PNG?raw=true" alt="Time Tracking" width="100%"/></td>
-    <td><img src="https://github.com/VibeCoder-Saad/Freelancers-Business-Hub/blob/main/assets/docs/Invoices.PNG?raw=true" alt="Invoices" width="100%"/></td>
-  </tr>
-  <tr>
-    <td align="center"><b>Client Management</b></td>
-    <td align="center"><b>Settings & Data Backup</b></td>
-  </tr>
-  <tr>
-    <td><img src="https://github.com/VibeCoder-Saad/Freelancers-Business-Hub/blob/main/assets/docs/Clients.PNG?raw=true" alt="Clients" width="100%"/></td>
-    <td><img src="https://github.com/VibeCoder-Saad/Freelancers-Business-Hub/blob/main/assets/docs/Settings.PNG?raw=true" alt="Settings" width="100%"/></td>
+    <td width="50%">
+      <h3>💵 One-Click Invoicing</h3>
+      <p>Turn time into money. Generate professional PDF invoices automatically from your time logs. Customize them with your logo and brand colors.</p>
+    </td>
+    <td width="50%">
+      <h3>🧾 Expense Manager</h3>
+      <p>Keep your profits clear. Log business expenses, categorize them (Software, Hardware, Travel), and attach digital receipts for tax season.</p>
+    </td>
   </tr>
 </table>
+
+---
+
+# 🎨 Visual Showcase
+
+<div align="center">
+
+| **Authentication** | **Project Management** |
+|:---:|:---:|
+| <img src="https://github.com/VibeCoder-Saad/Freelancers-Business-Hub/blob/main/assets/docs/signin.PNG?raw=true" width="400"/> | <img src="https://github.com/VibeCoder-Saad/Freelancers-Business-Hub/blob/main/assets/docs/ProjectHub.PNG?raw=true" width="400"/> |
+| **Secure Login** | **Interactive Project Hub** |
+
+| **Time & Money** | **Business Output** |
+|:---:|:---:|
+| <img src="https://github.com/VibeCoder-Saad/Freelancers-Business-Hub/blob/main/assets/docs/timetracking.PNG?raw=true" width="400"/> | <img src="https://github.com/VibeCoder-Saad/Freelancers-Business-Hub/blob/main/assets/docs/Invoices.PNG?raw=true" width="400"/> |
+| **Live Time Tracking** | **PDF Invoicing** |
+
 </div>
 
 ---
 
-## 🛠️ Tech Stack
+# 💻 Installation
 
-Built with robust and efficient technologies.
-
-*   **GUI Framework:** [PySide6](https://www.qt.io/qt-for-python) - The official Python binding for the Qt framework.
-*   **Database:** [SQLite 3](https://www.sqlite.org/index.html) - Robust, serverless, and self-contained database engine.
-*   **Visualization:** [Matplotlib](https://matplotlib.org/) - For generating dynamic revenue and activity charts.
-*   **Reporting:** [fpdf2](https://github.com/PyFPDF/fpdf2) - Simple and effective PDF generation for invoices.
-*   **Security:** [bcrypt](https://pypi.org/project/bcrypt/) - Industry-standard password hashing for securing user credentials.
-
----
-
-## 🚀 Getting Started
-
-Follow these instructions to get the application running on your local machine.
+Get up and running in minutes.
 
 ### Prerequisites
 
-*   **Python 3.7+**: Download from [python.org](https://www.python.org/).
-    > ⚠️ **Important:** During installation on Windows, ensure you check the box **"Add Python to PATH"**.
+*   **Python 3.10+** (Recommended)
+*   **Git**
 
-### Installation
+### Quick Start
 
 1.  **Clone the Repository**
     ```bash
@@ -124,35 +133,48 @@ Follow these instructions to get the application running on your local machine.
     pip install PySide6 bcrypt fpdf2 matplotlib
     ```
 
-3.  **Run the Application**
+3.  **Launch**
     ```bash
     python main.py
     ```
 
-> On the first run, you will be prompted to create a primary admin account.
+---
+
+# 🏗️ Technology Stack
+
+This project is built with a focus on performance, native look-and-feel, and maintainability.
+
+| Component | Tech | Description |
+| :--- | :--- | :--- |
+| **Core** | ![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white) | The logic and backend backbone. |
+| **UI Framework** | ![PySide6](https://img.shields.io/badge/PySide6-41CD52?style=flat-square&logo=qt&logoColor=white) | Official Python bindings for Qt, enabling a fluid, responsive UI. |
+| **Database** | ![SQLite](https://img.shields.io/badge/SQLite-003B57?style=flat-square&logo=sqlite&logoColor=white) | Serverless, self-contained, zero-configuration SQL database. |
+| **Charts** | ![Matplotlib](https://img.shields.io/badge/Matplotlib-11557c?style=flat-square&logo=python&logoColor=white) | Powerful plotting library for data visualization. |
+| **Security** | ![Bcrypt](https://img.shields.io/badge/Bcrypt-black?style=flat-square) | Industry standard for password hashing and security. |
+| **Reporting** | ![FPDF2](https://img.shields.io/badge/FPDF2-red?style=flat-square) | Lightweight PDF generation engine. |
 
 ---
 
-## 📁 Project Structure
+# 📁 Project Structure
 
 ```bash
 freelancer_hub/
-├── main.py                 # 🚀 The Application Launcher
-├── assets/                 # 🎨 Icons, backgrounds, and images
-├── database/
-│   └── database_manager.py # 🗄️ Database operations & schema
-├── shared/
-│   └── pdf_generator.py    # 📄 PDF Invoice generation logic
-└── ui/                     # 🖥️ User Interface Implementation
-    ├── login_window.py     #    - Secure login/register screen
-    ├── main_window.py      #    - Main application container
-    ├── styles.py           #    - CSS/QSS Stylesheet
-    ├── views/              #    - Individual feature views (Dashboard, Projects, etc.)
-    └── widgets/            #    - Reusable UI widgets
+├── main.py                 # 🚀 Entry Point
+├── assets/                 # 🎨 Static Assets (Icons, Images)
+├── database/               # 💾 Persistence Layer
+│   └── database_manager.py 
+├── shared/                 # 🛠️ Utilities
+│   └── pdf_generator.py    
+└── ui/                     # 🖥️ Presentation Layer
+    ├── views/              #    Feature Screens (Dashboard, Projects, etc.)
+    ├── widgets/            #    Reusable Components (Charts, Cards)
+    ├── login_window.py     
+    ├── main_window.py      
+    └── styles.py           
 ```
 
 ---
 
-## 📄 License
+# 📄 License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+Distributed under the **MIT License**. See `LICENSE` for more information.
