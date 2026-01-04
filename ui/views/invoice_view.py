@@ -3,9 +3,8 @@
 import os
 from datetime import datetime, timedelta
 from PySide6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QTableWidget, QTableWidgetItem,
-                               QPushButton, QDialog, QFormLayout, QMessageBox,
-                               QHeaderView, QDialogButtonBox, QLabel, QComboBox,
-                               QDateEdit)
+                               QPushButton, QDialog, QFormLayout, QLineEdit, QMessageBox, QHeaderView,
+                               QDialogButtonBox, QLabel, QComboBox, QDateEdit, QListWidget, QDoubleSpinBox, QStyle)
 from PySide6.QtCore import Qt, QDate
 from PySide6.QtGui import QIcon
 from database.database_manager import (get_all_clients, get_client_by_id, get_all_projects_with_client_name,
@@ -33,14 +32,14 @@ class InvoiceView(QWidget):
         self.invoices_table.setEditTriggers(QTableWidget.NoEditTriggers)
         self.layout.addWidget(self.invoices_table)
 
-        # --- NEW: Button Layout ---
-        button_layout = QHBoxLayout()
-        button_layout.addStretch(1)
-        self.delete_invoice_button = QPushButton("Delete Selected"); self.delete_invoice_button.setIcon(QIcon("assets/icons/trash-2.svg"))
-        self.add_invoice_button = QPushButton("Create New Invoice"); self.add_invoice_button.setIcon(QIcon("assets/icons/plus-circle.svg"))
-        button_layout.addWidget(self.delete_invoice_button)
-        button_layout.addWidget(self.add_invoice_button)
-        self.layout.addLayout(button_layout)
+        # --- Buttons ---
+        btn_layout = QHBoxLayout()
+        btn_layout.addStretch(1)
+        self.delete_invoice_button = QPushButton("Delete Selected"); self.delete_invoice_button.setIcon(self.style().standardIcon(QStyle.SP_TrashIcon))
+        self.add_invoice_button = QPushButton("Create New Invoice"); self.add_invoice_button.setIcon(self.style().standardIcon(QStyle.SP_FileDialogNewFolder))
+        btn_layout.addWidget(self.delete_invoice_button)
+        btn_layout.addWidget(self.add_invoice_button)
+        self.layout.addLayout(btn_layout)
         
         self.add_invoice_button.clicked.connect(self.show_create_invoice_dialog)
         self.delete_invoice_button.clicked.connect(self.delete_selected_invoice)
@@ -98,7 +97,13 @@ class InvoiceView(QWidget):
             self.invoice_number_label = QLabel(get_next_invoice_number()); self.issue_date = QDateEdit(QDate.currentDate()); self.due_date = QDateEdit(QDate.currentDate().addDays(30))
             form.addRow("Invoice Number:", self.invoice_number_label); form.addRow("Generate from Project:", self.project_combo)
             form.addRow("Issue Date:", self.issue_date); form.addRow("Due Date:", self.due_date); self.layout.addLayout(form)
-            self.generate_button = QPushButton("Generate Line Items"); self.generate_button.setIcon(QIcon("assets/icons/plus-circle.svg")); self.layout.addWidget(self.generate_button)
+        # Line Items Section
+            self.layout.addWidget(QLabel("Time Entries to Bill:"))
+            self.entries_list = QListWidget()
+            self.entries_list.setSelectionMode(QListWidget.MultiSelection)
+            self.layout.addWidget(self.entries_list)
+            
+            self.generate_button = QPushButton("Generate Line Items"); self.generate_button.setIcon(self.style().standardIcon(QStyle.SP_ArrowRight)); self.layout.addWidget(self.generate_button)
             self.items_table = QTableWidget(); self.items_table.setColumnCount(4); self.items_table.setHorizontalHeaderLabels(["Description", "Hours", "Rate", "Amount"])
             self.items_table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch); self.layout.addWidget(self.items_table)
             self.total_label = QLabel("Total: $0.00"); self.total_label.setStyleSheet("font-weight: bold; font-size: 16px;"); self.layout.addWidget(self.total_label, alignment=Qt.AlignRight)

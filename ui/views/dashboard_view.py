@@ -1,7 +1,7 @@
 # ui/views/dashboard_view.py
 
 from PySide6.QtWidgets import (QApplication, QWidget, QVBoxLayout, QHBoxLayout, QGridLayout, QLabel, QFrame,
-                               QTableWidget, QTableWidgetItem, QHeaderView, QPushButton)
+                               QTableWidget, QTableWidgetItem, QHeaderView, QPushButton, QStyle)
 from PySide6.QtGui import QIcon
 from PySide6.QtCore import QSize
 from ui.widgets.mpl_chart_widget import MplChartWidget
@@ -23,8 +23,8 @@ class DashboardView(QWidget):
         
         # --- NEW: Exit Button ---
         exit_button = QPushButton("Exit Application")
-        # ASSUMES you have a 'log-out.svg' or similar icon in assets/icons/
-        exit_button.setIcon(QIcon("assets/icons/log-out.svg"))
+
+        exit_button.setIcon(self.style().standardIcon(QStyle.SP_DialogCloseButton))
         exit_button.setFixedWidth(180)
         exit_button.clicked.connect(QApplication.instance().quit) # Safely quits the app
         header_layout.addWidget(exit_button)

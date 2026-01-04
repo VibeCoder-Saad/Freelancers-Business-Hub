@@ -3,8 +3,8 @@
 import os
 import shutil
 from datetime import datetime
-from PySide6.QtWidgets import (QWidget, QVBoxLayout, QPushButton, QMessageBox,
-                               QFileDialog, QLabel, QFormLayout, QLineEdit, QGroupBox)
+from PySide6.QtWidgets import (QWidget, QVBoxLayout, QLabel, QGroupBox, QFormLayout, 
+                               QComboBox, QPushButton, QHBoxLayout, QStyle, QLineEdit, QFileDialog, QMessageBox)
 from PySide6.QtGui import QIcon
 from database.database_manager import get_all_settings, save_setting
 
@@ -36,7 +36,7 @@ class SettingsView(QWidget):
         profile_layout.addRow(logo_button)
         
         save_profile_button = QPushButton("Save Profile Settings")
-        save_profile_button.setIcon(QIcon("assets/icons/plus-circle.svg"))
+        save_profile_button.setIcon(self.style().standardIcon(QStyle.SP_DialogSaveButton))
         save_profile_button.clicked.connect(self.save_profile_settings)
         profile_layout.addRow(save_profile_button)
         self.layout.addWidget(profile_group)
@@ -47,17 +47,17 @@ class SettingsView(QWidget):
         
         # Database Actions
         db_actions_layout = QHBoxLayout()
-        backup_button = QPushButton("Backup Database"); backup_button.setIcon(QIcon("assets/icons/database.svg"))
-        restore_button = QPushButton("Restore Backup"); restore_button.setIcon(QIcon("assets/icons/database.svg"))
+        backup_button = QPushButton("Backup Database"); backup_button.setIcon(self.style().standardIcon(QStyle.SP_DriveHDIcon))
+        restore_button = QPushButton("Restore Backup"); restore_button.setIcon(self.style().standardIcon(QStyle.SP_BrowserReload))
         db_actions_layout.addWidget(backup_button)
         db_actions_layout.addWidget(restore_button)
         
         # Export Actions
         export_layout = QHBoxLayout()
         self.export_projects_btn = QPushButton("Export Projects (CSV)")
-        self.export_projects_btn.setIcon(QIcon("assets/icons/download.svg"))
+        self.export_projects_btn.setIcon(self.style().standardIcon(QStyle.SP_DialogSaveButton))
         self.export_clients_btn = QPushButton("Export Clients (CSV)")
-        self.export_clients_btn.setIcon(QIcon("assets/icons/users.svg"))
+        self.export_clients_btn.setIcon(self.style().standardIcon(QStyle.SP_DialogSaveButton))
         export_layout.addWidget(self.export_projects_btn)
         export_layout.addWidget(self.export_clients_btn)
         

@@ -2,7 +2,7 @@
 
 from PySide6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QTableWidget, QTableWidgetItem,
                                QPushButton, QDialog, QFormLayout, QLineEdit,
-                               QMessageBox, QHeaderView, QDialogButtonBox, QLabel)
+                               QMessageBox, QHeaderView, QDialogButtonBox, QLabel, QStyle)
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QIcon
 # Import the new delete function
@@ -34,14 +34,16 @@ class ClientView(QWidget):
         button_layout = QHBoxLayout()
         button_layout.addStretch(1) # Pushes buttons to the right
 
-        self.delete_client_button = QPushButton("Delete Selected")
-        self.delete_client_button.setIcon(QIcon("assets/icons/trash-2.svg")) # ASSUMES trash-2.svg exists
+        self.delete_client_button = QPushButton("Delete Client")
+        self.delete_client_button.setIcon(self.style().standardIcon(QStyle.SP_TrashIcon))
         self.delete_client_button.setFixedWidth(180)
         self.delete_client_button.clicked.connect(self.delete_selected_client)
         button_layout.addWidget(self.delete_client_button)
 
-        self.add_client_button = QPushButton("Add New Client"); self.add_client_button.setIcon(QIcon("assets/icons/plus-circle.svg"))
-        self.add_client_button.setFixedWidth(180); self.add_client_button.clicked.connect(self.show_add_client_dialog)
+        self.add_client_button = QPushButton("Add New Client")
+        self.add_client_button.setIcon(self.style().standardIcon(QStyle.SP_FileDialogNewFolder))
+        self.add_client_button.setFixedWidth(180)
+        self.add_client_button.clicked.connect(self.show_add_client_dialog)
         button_layout.addWidget(self.add_client_button)
         self.layout.addLayout(button_layout)
 

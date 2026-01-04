@@ -1,6 +1,6 @@
 # ui/main_window.py
 
-from PySide6.QtWidgets import QMainWindow, QHBoxLayout, QVBoxLayout, QWidget, QStackedWidget
+from PySide6.QtWidgets import QMainWindow, QHBoxLayout, QVBoxLayout, QWidget, QStackedWidget, QStyle
 from PySide6.QtCore import QSize
 from PySide6.QtGui import QIcon
 
@@ -21,7 +21,7 @@ class MainWindow(QMainWindow):
         super().__init__()
         self.setWindowTitle("Freelancer's Business Hub - Professional Edition")
         self.setGeometry(100, 100, 1600, 900)
-        self.setWindowIcon(QIcon("assets/icons/briefcase.svg"))
+        self.setWindowIcon(self.style().standardIcon(QStyle.SP_ComputerIcon))
 
         # Object name for styling
         self.setObjectName("MainWindow")

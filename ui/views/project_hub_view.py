@@ -3,7 +3,7 @@
 from PySide6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QLabel, QTableWidget,
                                QTableWidgetItem, QHeaderView, QSplitter, QPushButton,
                                QMessageBox, QDialog, QFormLayout, QLineEdit, QComboBox,
-                               QDoubleSpinBox, QDialogButtonBox, QFrame, QTabWidget)
+                               QDoubleSpinBox, QDialogButtonBox, QFrame, QTabWidget, QStyle)
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QIcon
 
@@ -68,7 +68,7 @@ class ProjectHubView(QWidget):
         list_layout.addWidget(self.splitter)
 
         # Left Panel: Project List
-        left_panel = QFrame(); left_panel.setContentsMargins(0,0,10,0)
+        left_panel = QFrame(); left_panel.setObjectName("GlassFrame"); left_panel.setContentsMargins(0,0,10,0)
         left_layout = QVBoxLayout(left_panel)
         header = QLabel("Active Projects"); header.setObjectName("HeaderLabel")
         
@@ -79,8 +79,8 @@ class ProjectHubView(QWidget):
         self.projects_table.setEditTriggers(QTableWidget.NoEditTriggers)
         
         button_layout = QHBoxLayout()
-        self.delete_project_button = QPushButton("Delete"); self.delete_project_button.setIcon(QIcon("assets/icons/trash-2.svg"))
-        self.add_project_button = QPushButton("New Project"); self.add_project_button.setIcon(QIcon("assets/icons/plus-circle.svg"))
+        self.delete_project_button = QPushButton("Delete"); self.delete_project_button.setIcon(self.style().standardIcon(QStyle.SP_TrashIcon))
+        self.add_project_button = QPushButton("New Project"); self.add_project_button.setIcon(self.style().standardIcon(QStyle.SP_FileDialogNewFolder))
         button_layout.addWidget(self.delete_project_button)
         button_layout.addStretch(1)
         button_layout.addWidget(self.add_project_button)
@@ -90,7 +90,7 @@ class ProjectHubView(QWidget):
         left_layout.addLayout(button_layout)
         
         # Right Panel: Project Dashboard
-        self.right_panel = QFrame(); self.right_panel.setContentsMargins(10,0,0,0)
+        self.right_panel = QFrame(); self.right_panel.setObjectName("GlassFrame"); self.right_panel.setContentsMargins(10,0,0,0)
         self.right_layout = QVBoxLayout(self.right_panel)
         self.placeholder_label = QLabel("Select a project to view details"); self.placeholder_label.setAlignment(Qt.AlignCenter)
         self.dashboard_widget = QWidget(); self.dashboard_widget.setVisible(False)
@@ -109,8 +109,8 @@ class ProjectHubView(QWidget):
         self.kanban_widget = KanbanBoard()
 
         # Add tabs
-        self.view_tabs.addTab(self.list_view_widget, QIcon("assets/icons/list.svg"), "List View")
-        self.view_tabs.addTab(self.kanban_widget, QIcon("assets/icons/trello.svg"), "Task Board")
+        self.view_tabs.addTab(self.list_view_widget, self.style().standardIcon(QStyle.SP_FileDialogListView), "List View")
+        self.view_tabs.addTab(self.kanban_widget, self.style().standardIcon(QStyle.SP_FileDialogDetailedView), "Task Board")
         
         self.view_tabs.currentChanged.connect(self.on_tab_changed)
 

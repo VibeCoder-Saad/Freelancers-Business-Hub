@@ -1,5 +1,6 @@
-from PySide6.QtWidgets import QWidget, QVBoxLayout, QPushButton, QLabel, QFrame, QSpacerItem, QSizePolicy
-from PySide6.QtCore import Signal, QSize, Qt
+from PySide6.QtWidgets import (QWidget, QVBoxLayout, QPushButton, QLabel, QFrame, QStyle, QApplication, 
+                               QSpacerItem, QSizePolicy)
+from PySide6.QtCore import Signal, Qt
 from PySide6.QtGui import QIcon
 
 class Sidebar(QWidget):
@@ -36,22 +37,23 @@ class Sidebar(QWidget):
         # --- 2. Navigation Buttons ---
         self.buttons = []
         
-        # Define the buttons: (Label, IconPath)
-        # Note: Ensure these paths exist or use standard resource logic
+        # Helper to get standard icons
+        style = QApplication.style()
+        
+        # Define the buttons: (Label, Icon)
         nav_items = [
-            ("Dashboard", "assets/icons/activity.svg"),
-            ("Projects", "assets/icons/briefcase.svg"),
-            ("Time Tracking", "assets/icons/clock.svg"),
-            ("Invoices", "assets/icons/dollar-sign.svg"),
-            ("Expenses", "assets/icons/shopping-cart.svg"),
-            ("Clients", "assets/icons/users.svg"),
-            ("Settings", "assets/icons/settings.svg"),
+            ("Dashboard", style.standardIcon(QStyle.SP_ComputerIcon)),
+            ("Projects", style.standardIcon(QStyle.SP_DirIcon)), # or SP_DirIcon depending on exact binding, usually SP_DirIcon
+            ("Time Tracking", style.standardIcon(QStyle.SP_FileDialogDetailedView)),
+            ("Invoices", style.standardIcon(QStyle.SP_FileIcon)),
+            ("Expenses", style.standardIcon(QStyle.SP_DialogDiscardButton)),
+            ("Clients", style.standardIcon(QStyle.SP_DirHomeIcon)),
+            ("Settings", style.standardIcon(QStyle.SP_BrowserReload)),
         ]
 
-        for i, (label, icon_path) in enumerate(nav_items):
+        for i, (label, icon) in enumerate(nav_items):
             btn = QPushButton(label)
-            btn.setIcon(QIcon(icon_path))
-            btn.setIconSize(QSize(20, 20))
+            btn.setIcon(icon)
             btn.setCheckable(True)
             btn.setAutoExclusive(True) # Only one button active at a time
             btn.setObjectName("SidebarButton")

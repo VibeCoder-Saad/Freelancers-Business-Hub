@@ -15,7 +15,12 @@ dist/
 
 # --- CRITICAL: User-generated private data ---
 # This ensures you never accidentally upload your personal database or invoices.
+# --- CRITICAL: User-generated private data ---
+# This ensures you never accidentally upload your personal database or invoices.
 database/freelancer_hub.db
+*.db
+*.sqlite3
+*_backup_*.db
 data/invoices/
 data/receipts/
 

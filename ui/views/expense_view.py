@@ -5,9 +5,8 @@ import shutil
 from PySide6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QTableWidget, QTableWidgetItem,
                                QPushButton, QDialog, QFormLayout, QLineEdit, QMessageBox,
                                QHeaderView, QDialogButtonBox, QLabel, QComboBox,
-                               QDoubleSpinBox, QDateEdit, QFileDialog)
+                               QDoubleSpinBox, QDateEdit, QFileDialog, QStyle)
 from PySide6.QtCore import Qt, QDate
-from PySide6.QtGui import QIcon
 from database.database_manager import add_expense, get_all_expenses, delete_expense
 from datetime import datetime
 
@@ -49,8 +48,8 @@ class ExpenseView(QWidget):
         
         # --- NEW: Button Layout ---
         button_layout = QHBoxLayout(); button_layout.addStretch(1)
-        self.delete_button = QPushButton("Delete Selected"); self.delete_button.setIcon(QIcon("assets/icons/trash-2.svg"))
-        self.add_button = QPushButton("Log New Expense"); self.add_button.setIcon(QIcon("assets/icons/plus-circle.svg"))
+        self.delete_button = QPushButton("Delete Selected"); self.delete_button.setIcon(self.style().standardIcon(QStyle.SP_TrashIcon))
+        self.add_button = QPushButton("Log New Expense"); self.add_button.setIcon(self.style().standardIcon(QStyle.SP_FileDialogNewFolder))
         button_layout.addWidget(self.delete_button); button_layout.addWidget(self.add_button)
         self.layout.addLayout(button_layout)
         

@@ -10,7 +10,6 @@ QWidget {
 
 /* --- MAIN WINDOW BACKGROUND --- */
 #MainWindow {
-    background-image: url(assets/main_background.png);
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -59,11 +58,16 @@ QWidget {
 
 /* --- GLASSMORPHISM CONTAINERS --- */
 /* Used for Dashboards, Cards, Tables */
-#ChartFrame, #KPICard, QTableWidget, QHeaderView::section, QLineEdit, QComboBox, QDoubleSpinBox, QTextEdit, QDateEdit, #ContentContainer {
+#ChartFrame, #KPICard, QTableWidget, QHeaderView::section, QLineEdit, QComboBox, QDoubleSpinBox, QTextEdit, QDateEdit, #ContentContainer, #GlassFrame {
     background-color: rgba(30, 30, 46, 0.70); /* Glassy Dark */
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 12px;
 }
+
+QSplitter::handle {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
 
 /* --- HEADERS --- */
 #HeaderLabel { 

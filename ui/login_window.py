@@ -1,7 +1,8 @@
 # ui/login_window.py
 
 from PySide6.QtWidgets import (QDialog, QVBoxLayout, QHBoxLayout, QLabel, QLineEdit,
-                               QPushButton, QMessageBox, QStackedWidget, QWidget, QFrame, QSizePolicy, QToolButton)
+                               QPushButton, QMessageBox, QStackedWidget, QWidget, QFrame, 
+                               QSizePolicy, QToolButton, QStyle)
 # QPixmap is needed for the robust background image handling
 from PySide6.QtGui import QIcon, QPainter, QLinearGradient, QColor, QPixmap
 from PySide6.QtCore import Qt, QSize, QPropertyAnimation, QEasingCurve, QRect
@@ -54,7 +55,7 @@ class LoginWindow(QDialog):
     def setup_login_ui(self):
         layout = QVBoxLayout(self.login_widget)
         icon_label = QLabel()
-        icon_label.setPixmap(QIcon("assets/icons/briefcase.svg").pixmap(QSize(40, 40)))
+
         icon_label.setAlignment(Qt.AlignCenter)
 
         title = QLabel("Sign in with email")
@@ -66,8 +67,8 @@ class LoginWindow(QDialog):
         subtitle.setAlignment(Qt.AlignCenter)
         subtitle.setWordWrap(True)
 
-        self.login_user_input_widget, self.login_user_input = self.create_input_field("assets/icons/user.svg", "Username")
-        self.login_pass_input_widget, self.login_pass_input = self.create_input_field("assets/icons/lock.svg", "Password", is_password=True)
+        self.login_user_input_widget, self.login_user_input = self.create_input_field(self.style().standardIcon(QStyle.SP_DirHomeIcon), "Username")
+        self.login_pass_input_widget, self.login_pass_input = self.create_input_field(self.style().standardIcon(QStyle.SP_VistaShield), "Password", is_password=True)
 
         login_button = QPushButton("Get Started")
         login_button.setObjectName("LoginButton")
@@ -94,9 +95,9 @@ class LoginWindow(QDialog):
         title.setObjectName("LoginTitle")
         title.setAlignment(Qt.AlignCenter)
 
-        self.reg_user_input_widget, self.reg_user_input = self.create_input_field("assets/icons/user.svg", "Username")
-        self.reg_pass_input_widget, self.reg_pass_input = self.create_input_field("assets/icons/lock.svg", "New Password", is_password=True)
-        self.reg_confirm_pass_widget, self.reg_confirm_pass_input = self.create_input_field("assets/icons/lock.svg", "Confirm Password", is_password=True)
+        self.reg_user_input_widget, self.reg_user_input = self.create_input_field(self.style().standardIcon(QStyle.SP_DirHomeIcon), "Username")
+        self.reg_pass_input_widget, self.reg_pass_input = self.create_input_field(self.style().standardIcon(QStyle.SP_VistaShield), "New Password", is_password=True)
+        self.reg_confirm_pass_widget, self.reg_confirm_pass_input = self.create_input_field(self.style().standardIcon(QStyle.SP_VistaShield), "Confirm Password", is_password=True)
 
         register_button = QPushButton("Register Account")
         register_button.setObjectName("LoginButton")
@@ -116,14 +117,14 @@ class LoginWindow(QDialog):
         register_button.clicked.connect(self.handle_register)
         show_login_button.clicked.connect(lambda: self.animate_switch(0))
 
-    def create_input_field(self, icon_path, placeholder, is_password=False):
+    def create_input_field(self, icon, placeholder, is_password=False):
         frame = QFrame()
         frame.setObjectName("LoginInputFrame")
         layout = QHBoxLayout(frame)
         layout.setContentsMargins(10, 5, 10, 5)
 
         icon_label = QLabel()
-        icon_label.setPixmap(QIcon(icon_path).pixmap(QSize(20, 20)))
+        icon_label.setPixmap(icon.pixmap(QSize(20, 20)))
 
         line_edit = QLineEdit()
         line_edit.setPlaceholderText(placeholder)
@@ -133,18 +134,18 @@ class LoginWindow(QDialog):
         if is_password:
             line_edit.setEchoMode(QLineEdit.Password)
             eye_button = QToolButton()
-            eye_button.setIcon(QIcon("assets/icons/eye.svg"))
+            eye_button.setText("Show")
             eye_button.setCheckable(True)
-            eye_button.setStyleSheet("background: transparent; border: none;")
-            eye_button.setIconSize(QSize(18, 18))
+            eye_button.setStyleSheet("background: transparent; border: none; color: #89b4fa; font-weight: bold;")
 
             def toggle_password():
                 if eye_button.isChecked():
                     line_edit.setEchoMode(QLineEdit.Normal)
-                    eye_button.setIcon(QIcon("assets/icons/eye-off.svg"))
+                    eye_button.setText("Hide")
                 else:
                     line_edit.setEchoMode(QLineEdit.Password)
-                    eye_button.setIcon(QIcon("assets/icons/eye.svg"))
+                    eye_button.setText("Show")
+        
 
             eye_button.clicked.connect(toggle_password)
             layout.addWidget(icon_label)
@@ -183,26 +184,15 @@ class LoginWindow(QDialog):
     def paintEvent(self, event):
         """Draws the background, preferring an image but falling back to a gradient."""
         painter = QPainter()
-        # It is critical to begin the painter ON the widget itself ('self')
-        if not painter.begin(self):
-            print("CRITICAL ERROR: QPainter could not be initialized on LoginWindow.")
-            return
+        """Paints a gradient background."""
+        painter = QPainter(self)
+        painter.setRenderHint(QPainter.Antialiasing)
 
-        # First, try to load the background image
-        background_pixmap = QPixmap("assets/background.jpg")
-
-        # Check if the image loaded successfully (is not null)
-        if not background_pixmap.isNull():
-            # If the image is valid, draw it scaled to fill the entire window
-            scaled_pixmap = background_pixmap.scaled(self.size(), Qt.KeepAspectRatioByExpanding, Qt.SmoothTransformation)
-            painter.drawPixmap(self.rect(), scaled_pixmap)
-        else:
-            # If the image FAILED to load, print a warning and draw your gradient as a fallback
-            print("WARNING: Could not load 'assets/background.jpg'. Drawing fallback gradient.")
-            gradient = QLinearGradient(0, 0, self.width(), self.height())
-            gradient.setColorAt(0, QColor("#667eea"))
-            gradient.setColorAt(1, QColor("#764ba2"))
-            painter.fillRect(self.rect(), gradient)
+        # Draw Gradient
+        gradient = QLinearGradient(0, 0, self.width(), self.height())
+        gradient.setColorAt(0.0, QColor(30, 30, 47)) # Dark Base
+        gradient.setColorAt(1.0, QColor(49, 50, 68)) # Lighter Gradient
+        painter.fillRect(self.rect(), gradient)
         
         # It is critical to end the painter
         painter.end()

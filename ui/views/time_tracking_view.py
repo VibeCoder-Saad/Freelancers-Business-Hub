@@ -1,8 +1,7 @@
 # ui/views/time_tracking_view.py
 from PySide6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QComboBox, QPushButton, QLabel, QTableWidget,
-                               QTableWidgetItem, QHeaderView, QLineEdit, QMessageBox, QFrame)
+                               QTableWidgetItem, QHeaderView, QLineEdit, QMessageBox, QFrame, QStyle)
 from PySide6.QtCore import Qt, QTimer
-from PySide6.QtGui import QIcon
 # Import the new delete function
 from database.database_manager import (get_all_projects_with_client_name, start_time_entry,
                                        stop_time_entry, get_time_entries_for_project,
@@ -27,7 +26,7 @@ class TimeTrackingView(QWidget):
         self.project_combo = QComboBox(); self.project_combo.setPlaceholderText("Select a Project to Track")
         self.description_input = QLineEdit(); self.description_input.setPlaceholderText("What are you working on?")
         self.timer_label = QLabel("00:00:00"); self.timer_label.setStyleSheet("font-size: 22px; font-weight: bold; color: #a6e3a1;")
-        self.start_stop_button = QPushButton("Start"); self.start_stop_button.setIcon(QIcon("assets/icons/clock.svg")); self.start_stop_button.setFixedWidth(120)
+        self.start_stop_button = QPushButton("Start"); self.start_stop_button.setIcon(self.style().standardIcon(QStyle.SP_MediaPlay)); self.start_stop_button.setFixedWidth(120)
         
         timer_layout.addWidget(QLabel("Track Time for Project:")); timer_layout.addWidget(self.project_combo, 2)
         timer_layout.addWidget(self.description_input, 3); timer_layout.addWidget(self.timer_label); timer_layout.addWidget(self.start_stop_button)
@@ -42,7 +41,7 @@ class TimeTrackingView(QWidget):
         # --- NEW: Delete button ---
         button_layout = QHBoxLayout()
         button_layout.addStretch(1)
-        self.delete_button = QPushButton("Delete Selected Entry"); self.delete_button.setIcon(QIcon("assets/icons/trash-2.svg")); self.delete_button.setFixedWidth(220)
+        self.delete_button = QPushButton("Delete Selected Entry"); self.delete_button.setIcon(self.style().standardIcon(QStyle.SP_TrashIcon)); self.delete_button.setFixedWidth(220)
         button_layout.addWidget(self.delete_button)
         self.layout.addLayout(button_layout)
         
