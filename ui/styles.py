@@ -2,86 +2,137 @@
 
 # This stylesheet is for the main application window (dark theme with background).
 MODERN_STYLESHEET = """
+/* --- GLOBAL RESET & FONTS --- */
 QWidget {
     font-family: 'Segoe UI', 'SF Pro Display', 'Helvetica Neue', 'Arial', sans-serif;
+    color: #e0e0e0;
 }
 
+/* --- MAIN WINDOW BACKGROUND --- */
 #MainWindow {
-    /* --- THE BACKGROUND IMAGE IS SET HERE --- */
     background-image: url(assets/main_background.png);
     background-position: center;
     background-repeat: no-repeat;
-    background-attachment: fixed; /* Ensures the background doesn't scroll */
-}
-#MainWindow, #MainWindow QWidget {
-    /* Fallback color if image fails to load */
-    background-color: #1e1e2f; 
-    color: #cad3f5;
-    font-size: 14px;
+    background-attachment: fixed;
+    background-color: #1e1e2f; /* Fallback */
 }
 
-/* --- Make UI elements semi-transparent for the "glass" effect --- */
-#ChartFrame, #KPICard, QTableWidget, QHeaderView::section, QLineEdit, QComboBox, QDoubleSpinBox, QTextEdit, QDateEdit {
-    background-color: rgba(36, 39, 58, 0.85); /* Semi-transparent version of #24273a */
-    border: 1px solid rgba(73, 77, 100, 0.7); /* Semi-transparent version of #494d64 */
-    border-radius: 8px;
+/* --- SIDEBAR STYLING --- */
+#Sidebar {
+    background-color: rgba(24, 24, 37, 0.90); /* Dark, semi-transparent sidebar */
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-QTabBar::tab {
-    background: rgba(30, 30, 47, 0.8);
-    color: #b4befe;
+#SidebarTitle {
+    font-size: 22px;
     font-weight: bold;
-    padding: 12px 22px;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    margin-right: 2px;
+    color: #89b4fa; /* Primary Blue Accent */
+    padding: 10px;
+    background: transparent;
 }
-QTabBar::tab:selected {
-    background: rgba(54, 58, 79, 0.9); /* More opaque when selected */
+
+#SidebarLine {
+    color: rgba(255, 255, 255, 0.1);
+}
+
+#SidebarButton {
+    background-color: transparent;
+    border: none;
+    border-radius: 8px;
+    color: #a6adc8; /* Muted text */
+    text-align: left;
+    padding: 12px 20px;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+#SidebarButton:hover {
+    background-color: rgba(255, 255, 255, 0.05); /* Subtle highlight */
     color: #ffffff;
 }
-QTabWidget::pane {
-    border: none;
+
+#SidebarButton:checked {
+    background-color: #89b4fa; /* Active Color */
+    color: #1e1e2f; /* Text turns dark for contrast */
+    font-weight: bold;
 }
 
-/* --- Text and other styles remain the same for readability --- */
+/* --- GLASSMORPHISM CONTAINERS --- */
+/* Used for Dashboards, Cards, Tables */
+#ChartFrame, #KPICard, QTableWidget, QHeaderView::section, QLineEdit, QComboBox, QDoubleSpinBox, QTextEdit, QDateEdit, #ContentContainer {
+    background-color: rgba(30, 30, 46, 0.70); /* Glassy Dark */
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+}
+
+/* --- HEADERS --- */
 #HeaderLabel { 
-    background-color: transparent; /* Headers should not have a background */
-    font-size: 18px; 
+    background-color: transparent; 
+    font-size: 26px; 
     font-weight: bold; 
-    color: #89b4fa; 
-    padding-top: 10px; 
-    border-bottom: 1px solid rgba(73, 77, 100, 0.7);
-    margin-bottom: 5px; 
+    color: #ffffff; 
+    padding-bottom: 5px;
+    border-bottom: 2px solid #89b4fa;
+    margin-bottom: 15px; 
 }
-#KPIValue { background-color: transparent; font-size: 28px; font-weight: bold; color: #a6e3a1; }
-#KPILabel, #KPITitle { background-color: transparent; font-size: 12px; color: #b4befe; }
 
+/* --- KPIS --- */
+#KPIValue { background-color: transparent; font-size: 32px; font-weight: bold; color: #a6e3a1; } /* Green */
+#KPILabel { background-color: transparent; font-size: 13px; color: #bac2de; }
+#KPITitle { background-color: transparent; font-size: 14px; font-weight: bold; color: #89b4fa; }
+
+/* --- BUTTONS (Action Buttons inside pages) --- */
 QPushButton { 
     background-color: #89b4fa; 
     color: #1e1e2f; 
     font-weight: bold; 
     border: none; 
-    border-radius: 5px; 
-    padding: 10px 15px; 
-    icon-size: 18px; 
+    border-radius: 6px; 
+    padding: 10px 18px; 
+    font-size: 14px;
 }
-QPushButton:hover { background-color: #a6e3a1; }
+QPushButton:hover { 
+    background-color: #b4befe; /* Lighter Blue */
+}
+QPushButton:pressed {
+    background-color: #74c7ec;
+}
 
+/* --- FORM INPUTS --- */
 QLineEdit, QComboBox, QDoubleSpinBox, QTextEdit, QDateEdit { 
-    padding: 8px; 
-    color: #cad3f5; 
+    padding: 10px; 
+    color: #ffffff; 
+    background-color: rgba(0, 0, 0, 0.2); /* Darker input background */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
 }
 QLineEdit:focus, QComboBox:focus, QDoubleSpinBox:focus, QTextEdit:focus, QDateEdit:focus { 
-    border: 1px solid #cba6f7; 
+    border: 1px solid #89b4fa; 
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
-QTableWidget { gridline-color: rgba(73, 77, 100, 0.7); }
+/* --- TABLES --- */
+QTableWidget { 
+    gridline-color: rgba(255, 255, 255, 0.05); 
+    selection-background-color: rgba(137, 180, 250, 0.3); /* Selection Highlight */
+}
 QHeaderView::section {
-    color: #f5c2e7; 
+    background-color: rgba(30, 30, 46, 0.9);
+    color: #89b4fa; 
     font-weight: bold; 
-    padding: 10px; 
+    padding: 12px; 
     border: none; 
-    border-bottom: 2px solid #cba6f7;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+QScrollBar:vertical {
+    border: none;
+    background: transparent;
+    width: 8px;
+    margin: 0px;
+}
+QScrollBar::handle:vertical {
+    background: rgba(255, 255, 255, 0.2);
+    min-height: 20px;
+    border-radius: 4px;
 }
 """

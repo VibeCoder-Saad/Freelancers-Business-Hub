@@ -214,56 +214,65 @@ class LoginWindow(QDialog):
         self.glass_frame.setFixedSize(card_width, card_height)
 
     def styles(self):
-        # Your custom styles are preserved exactly as you wrote them
         return """
         #LoginWindow {
-            /* The background is now handled by paintEvent, but this can be a fallback */
-            background-color: #667eea;
+            /* The background is handled by paintEvent */
+            background-color: #1e1e2f; 
         }
         #GlassFrame {
-            background: rgba(255, 255, 255, 0.14);
-            border-radius: 15px;
-            border: 1px solid rgba(255,255,255,0.25);
+            background-color: rgba(24, 24, 37, 0.65); /* Darker glass */
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         #LoginTitle {
-            font-size: 22px;
+            font-size: 26px;
             font-weight: bold;
             color: #ffffff;
+            font-family: 'Segoe UI', sans-serif;
+            margin-bottom: 5px;
         }
         #LoginSubtitle {
             font-size: 14px;
-            color: #e0e0e0;
+            color: #bac2de;
+            font-family: 'Segoe UI', sans-serif;
         }
         #LoginInputFrame {
-            background: rgba(255, 255, 255, 0.20);
-            border-radius: 10px;
+            background-color: rgba(0, 0, 0, 0.3); /* Dark input container */
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
         #LoginLineEdit {
             background: transparent;
             border: none;
-            font-size: 14px;
+            font-size: 15px;
             color: #ffffff;
-        }
-        #LoginLineEdit:focus {
-            border-bottom: 2px solid #00c6ff;
+            padding: 2px;
         }
         #LoginButton {
-            background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
-                                        stop:0 #00c6ff, stop:1 #0072ff);
-            color: #fff;
-            font-size: 15px;
+            background-color: #89b4fa; /* Primary Blue */
+            color: #1e1e2f; /* Dark Text */
+            font-size: 16px;
             font-weight: bold;
             border-radius: 8px;
-            padding: 10px;
+            padding: 12px;
+            border: none;
         }
         #LoginButton:hover {
-            background: #0072ff;
+            background-color: #b4befe;
+        }
+        #LoginButton:pressed {
+            background-color: #74c7ec;
         }
         #LinkButton {
             background: none;
             border: none;
-            color: #e0e0e0;
+            color: #89b4fa;
             font-weight: bold;
+            font-size: 13px;
+        }
+        #LinkButton:hover {
+            text-decoration: underline;
+            color: #b4befe;
         }
         """
 

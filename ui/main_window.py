@@ -1,8 +1,11 @@
 # ui/main_window.py
 
-from PySide6.QtWidgets import QMainWindow, QTabWidget, QVBoxLayout, QWidget
+from PySide6.QtWidgets import QMainWindow, QHBoxLayout, QVBoxLayout, QWidget, QStackedWidget
 from PySide6.QtCore import QSize
 from PySide6.QtGui import QIcon
+
+# Import Sidebar
+from .widgets.sidebar import Sidebar
 
 # Import all final views
 from .views.dashboard_view import DashboardView
@@ -20,50 +23,58 @@ class MainWindow(QMainWindow):
         self.setGeometry(100, 100, 1600, 900)
         self.setWindowIcon(QIcon("assets/icons/briefcase.svg"))
 
-        # --- THE FIX IS HERE ---
-        # We give the main window a name so the stylesheet can target it specifically.
+        # Object name for styling
         self.setObjectName("MainWindow")
 
+        # --- Main Layout Container ---
         self.central_widget = QWidget()
         self.setCentralWidget(self.central_widget)
-        self.main_layout = QVBoxLayout(self.central_widget)
         
-        self.tab_widget = QTabWidget()
-        self.tab_widget.setIconSize(QSize(20, 20))
-        self.main_layout.addWidget(self.tab_widget)
+        # Horizontal Layout: Sidebar (Left) | Content (Right)
+        self.main_layout = QHBoxLayout(self.central_widget)
+        self.main_layout.setContentsMargins(0, 0, 0, 0) # No margins for full immersion
+        self.main_layout.setSpacing(0)
 
-        # --- Instantiate and Add All Final Views as Tabs ---
+        # --- 1. Sidebar ---
+        self.sidebar = Sidebar()
+        self.main_layout.addWidget(self.sidebar)
+
+        # --- 2. Main Content Area (Stacked) ---
+        self.content_stack = QStackedWidget()
+        self.content_stack.setObjectName("ContentContainer") # For optional styling
+        self.main_layout.addWidget(self.content_stack)
+
+        # --- Instantiate Views ---
         self.dashboard_tab = DashboardView()
-        self.tab_widget.addTab(self.dashboard_tab, QIcon("assets/icons/activity.svg"), "Dashboard")
-        
         self.project_hub_tab = ProjectHubView()
-        self.tab_widget.addTab(self.project_hub_tab, QIcon("assets/icons/briefcase.svg"), "Projects Hub")
-        
         self.time_tracking_tab = TimeTrackingView()
-        self.tab_widget.addTab(self.time_tracking_tab, QIcon("assets/icons/clock.svg"), "Time Tracking")
-        
         self.invoice_tab = InvoiceView()
-        self.tab_widget.addTab(self.invoice_tab, QIcon("assets/icons/dollar-sign.svg"), "Invoices")
-        
         self.expense_tab = ExpenseView()
-        self.tab_widget.addTab(self.expense_tab, QIcon("assets/icons/shopping-cart.svg"), "Expenses")
-        
         self.client_tab = ClientView()
-        self.tab_widget.addTab(self.client_tab, QIcon("assets/icons/users.svg"), "Clients")
-        
         self.settings_tab = SettingsView()
-        self.tab_widget.addTab(self.settings_tab, QIcon("assets/icons/settings.svg"), "Settings & Data")
 
-        # --- Connect the signal to refresh data when a tab is clicked ---
-        self.tab_widget.currentChanged.connect(self.refresh_current_tab)
+        # Add views to stack (Order matches sidebar index)
+        self.content_stack.addWidget(self.dashboard_tab)      # Index 0
+        self.content_stack.addWidget(self.project_hub_tab)    # Index 1
+        self.content_stack.addWidget(self.time_tracking_tab)  # Index 2
+        self.content_stack.addWidget(self.invoice_tab)        # Index 3
+        self.content_stack.addWidget(self.expense_tab)        # Index 4
+        self.content_stack.addWidget(self.client_tab)         # Index 5
+        self.content_stack.addWidget(self.settings_tab)       # Index 6
+
+        # --- Connect Signals ---
+        self.sidebar.page_changed.connect(self.switch_page)
+
+        # Initial Load
+        self.switch_page(0)
+
+    def switch_page(self, index):
+        """Switches the stacked widget page and refreshes data."""
+        self.content_stack.setCurrentIndex(index)
         
-        # Initial refresh of the first tab
-        self.refresh_current_tab(0)
-
-    def refresh_current_tab(self, index):
-        current_widget = self.tab_widget.widget(index)
+        current_widget = self.content_stack.widget(index)
         if hasattr(current_widget, 'refresh_data'):
             try:
                 current_widget.refresh_data()
             except Exception as e:
-                print(f"Error refreshing tab {index}: {e}")
+                print(f"Error refreshing page {index}: {e}")
