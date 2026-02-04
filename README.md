@@ -12,9 +12,9 @@ A powerful, modern, and beautiful desktop application designed for freelancers t
 ## ✨ Key Features
 
 ### 🎨 Stunning UI & UX
-*   **Hybrid Architecture**: Blends native Python performance with modern Web (HTML/CSS) aesthetics.
-*   **Crystal Clear Theme**: A fully customized "Glassmorphism" design with blur effects, animations, and a premium dark mode.
-*   **Responsive Dashboard**: Real-time updates and interactive widgets.
+*   **Native Performance**: Built completely with PySide6 for maximum speed and efficiency.
+*   **Green Cyber Theme**: A futuristic "Matrix Console" aesthetic with neon green accents and dark backgrounds.
+*   **Responsive Dashboard**: Real-time updates and interactive native widgets.
 
 ### 🔒 Secure Role-Based Access (RBAC)
 *   **Freelancer Mode**: Full access to manage projects, billable hours, and settings.
