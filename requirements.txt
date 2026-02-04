@@ -1,0 +1,9 @@
+PySide6
+fpdf2
+matplotlib
+bcrypt
+fastapi
+uvicorn
+pyautogui
+psutil
+requests

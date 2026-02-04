@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freelancer Hub</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- FontAwesome for Icons (Optional, using CDN for now or you can bundle) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div id="app">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="brand">
+                <i class="fas fa-cube"></i> FreelancerHub
+            </div>
+
+            <div class="nav-item active" onclick="activateNav(this, 'dashboard')">
+                <i class="fas fa-home"></i> Dashboard
+            </div>
+            <div class="nav-item" onclick="activateNav(this, 'projects')">
+                <i class="fas fa-project-diagram"></i> Projects
+            </div>
+            <div class="nav-item" onclick="activateNav(this, 'financials')">
+                <i class="fas fa-wallet"></i> Financials
+            </div>
+            <div class="nav-item" onclick="activateNav(this, 'settings')">
+                <i class="fas fa-cog"></i> Settings
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <h1 class="page-title" id="page-title">Dashboard</h1>
+                <div class="user-profile">
+                    <span>Welcome, <b id="username-display">User</b></span>
+                    <div class="avatar" id="user-avatar">U</div>
+                </div>
+            </header>
+
+            <!-- Dynamic Content -->
+            <div id="dashboard-view">
+                <div class="stats-grid">
+                    <div class="card">
+                        <div class="stat-title">Total Revenue</div>
+                        <div class="stat-value">$12,450</div>
+                        <div class="stat-trend">+14% vs last month</div>
+                    </div>
+                    <div class="card">
+                        <div class="stat-title">Active Projects</div>
+                        <div class="stat-value">7</div>
+                        <div class="stat-trend">2 pending</div>
+                    </div>
+                    <div class="card">
+                        <div class="stat-title">Pending Invoices</div>
+                        <div class="stat-value">$3,200</div>
+                        <div class="stat-trend down">-5% vs last week</div>
+                    </div>
+                </div>
+
+                <div class="content-area">
+                    <h2>Recent Activity</h2>
+                    <p style="color: var(--text-secondary); margin-top: 10px;">Loading data from Python backend...</p>
+                    <!-- Data Table or List driven by JS -->
+                    <ul id="activity-log" style="margin-top: 20px; list-style: none;">
+                        <!-- JS will populate this -->
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Settings View -->
+            <div id="settings-view" style="display: none;">
+                <div class="content-area">
+                    <h2 class="section-title">Settings</h2>
+
+                    <!-- Profile Section -->
+                    <div class="settings-card">
+                        <h3><i class="fas fa-user-circle"></i> Profile Settings</h3>
+                        <div class="form-group">
+                            <label>Username</label>
+                            <input type="text" id="setting-username" readonly style="background: rgba(0,0,0,0.05);">
+                        </div>
+                        <div class="form-group">
+                            <label>New Password</label>
+                            <input type="password" id="setting-password" placeholder="Enter new password">
+                        </div>
+                        <div class="form-group">
+                            <label>Profile Picture</label>
+                            <div style="display: flex; gap: 10px; align-items: center;">
+                                <div class="avatar" id="setting-avatar-preview">U</div>
+                                <input type="file" id="setting-avatar-upload" accept="image/*">
+                            </div>
+                        </div>
+                        <button class="btn-primary" onclick="saveProfile()">Update Profile</button>
+                    </div>
+
+                    <!-- App Settings -->
+                    <div class="settings-card" style="margin-top: 20px;">
+                        <h3><i class="fas fa-sliders-h"></i> App Preferences</h3>
+                        <div class="form-group">
+                            <label>Theme</label>
+                            <select id="setting-theme">
+                                <option value="crystal">Crystal Clear (Default)</option>
+                                <option value="dark">Dark Mode</option>
+                            </select>
+                        </div>
+                        <button class="btn-secondary" onclick="alert('Theme settings saved!')">Save Preferences</button>
+                    </div>
+
+                    <!-- Danger Zone -->
+                    <div class="settings-card error-border" style="margin-top: 20px;">
+                        <h3 style="color: var(--danger);"><i class="fas fa-exclamation-triangle"></i> Danger Zone</h3>
+                        <p>Clear all local caches and reset database (Dev Only)</p>
+                        <button class="btn-danger" onclick="backend.reset_database()" style="margin-top: 10px;">Reset
+                            Database</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="js/qwebchannel.js"></script>
+    <script src="js/script.js"></script>
+</body>
+
+</html>
